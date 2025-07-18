@@ -20,7 +20,7 @@
   // 保存時の自動処理
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "explicit"
+    "source.organizeImports": "never"
   },
 
   // エディター基本設定

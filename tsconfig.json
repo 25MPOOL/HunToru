@@ -15,11 +15,12 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
     "paths": {
-      "@huntoru/shared": ["./packages/shared/src"],
-      "@/web/*": ["./apps/web/src/*"],
-      "@/api/*": ["./apps/api/src/*"]
-    }
+      "@/web/*": ["apps/web/src/*"],
+      "@/api/*": ["apps/api/src/*"],
+      // "@huntoru/shared": ["packages/shared/src"],
+    },
   },
   "files": [],
   "references": [

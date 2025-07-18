@@ -8,19 +8,13 @@
 	// パッケージマネージャー設定
 	"npm.packageManager": "pnpm",
 
-	// 検索・表示除外設定
+	// 検索・ファイル除外設定
 	"search.exclude": {
 	"**/node_modules": true,
 	"**/dist": true,
 	"**/build": true,
 	"**/.next": true,
 	"**/pnpm-lock.yaml": true
-	},
-	"files.exclude": {
-	"**/node_modules": true,
-	"**/dist": true,
-	"**/build": true,
-	"**/.next": true
 	},
 
   // 保存時の自動処理

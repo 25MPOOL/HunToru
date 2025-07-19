@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "YoavBls.pretty-ts-errors",
+    "MylesMurphy.prettify-ts",
+
+    "formulahendry.auto-close-tag",
+
+    "aaron-bond.better-comments",
+
+    "PKief.material-icon-theme",
+    "oderwat.indent-rainbow",
+
+    "redhat.vscode-yaml"
+  ]
+}

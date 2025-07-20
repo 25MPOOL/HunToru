@@ -10,7 +10,8 @@
     "format": "prettier --cache --write .",
     "format:check": "prettier --cache --check .",
     "clean": "pnpm --parallel run clean",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy": "pnpm --parallel run deploy"
   },
   "lint-staged": {
     "apps/**/*.{js,jsx,ts,tsx}": [

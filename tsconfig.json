@@ -18,13 +18,10 @@
     "baseUrl": ".",
     "paths": {
       "@/web/*": ["apps/web/src/*"],
-      "@/api/*": ["apps/api/src/*"],
+      "@/api/*": ["apps/api/src/*"]
       // "@huntoru/shared": ["packages/shared/src"],
-    },
+    }
   },
   "files": [],
-  "references": [
-    { "path": "./apps/web" },
-    { "path": "./apps/api" }
-  ]
+  "references": [{ "path": "./apps/web" }, { "path": "./apps/api" }]
 }

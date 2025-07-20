@@ -9,8 +9,11 @@
     "clean": "pnpm --parallel run clean"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "@types/node": "^22.0.0"
+    "@types/node": "^22.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2",
+    "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">=22.0.0",

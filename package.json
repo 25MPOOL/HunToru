@@ -14,7 +14,7 @@
     "lint-staged": {
         "apps/**/*.{js,jsx,ts,tsx}": [
             "prettier --cache --write",
-            "eslint --cache --max-warnings=0"
+            "pnpm run lint"
         ],
         "*.{json,md,yml,yaml}": [
             "prettier --cache --write"

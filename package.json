@@ -14,11 +14,8 @@
     "deploy": "pnpm --parallel run deploy"
   },
   "lint-staged": {
-    "apps/**/*.{js,jsx,ts,tsx}": [
-      "prettier --cache --write"
-    ],
-    "*.{json,md,yml,yaml}": [
-      "prettier --cache --write"
+    "*": [
+      "pnpm run format"
     ]
   },
   "devDependencies": {

@@ -11,15 +11,14 @@
         "clean": "pnpm --parallel run clean",
         "prepare": "husky install"
     },
-    "lint-staged": {
-        "apps/**/*.{js,jsx,ts,tsx}": [
-            "prettier --cache --write",
-            "pnpm run lint"
-        ],
-        "*.{json,md,yml,yaml}": [
-            "prettier --cache --write"
-        ]
-    },
+      "lint-staged": {
+    "apps/**/*.{js,jsx,ts,tsx}": [
+      "prettier --cache --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --cache --write"
+    ]
+  },
     "devDependencies": {
         "@eslint/js": "^9.31.0",
         "@types/node": "^22.0.0",

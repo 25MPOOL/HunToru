@@ -6,7 +6,9 @@
     "build": "pnpm --parallel run build",
     "type-check": "pnpm --parallel run type-check",
     "lint": "pnpm --parallel run lint",
-    "clean": "pnpm --parallel run clean"
+    "format": "prettier --cache --write .",
+    "clean": "pnpm --parallel run clean",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

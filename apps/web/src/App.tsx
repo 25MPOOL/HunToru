@@ -12,7 +12,7 @@ function App() {
   const sendImageToAPI = async (imageData: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:8788/judge", {
+      const response = await fetch("http://localhost:8787/judge", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

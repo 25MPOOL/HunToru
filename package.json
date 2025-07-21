@@ -1,16 +1,36 @@
 {
   "name": "huntoru",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "pnpm --parallel run dev",
     "build": "pnpm --parallel run build",
     "type-check": "pnpm --parallel run type-check",
-    "lint": "pnpm --parallel run lint",
-    "clean": "pnpm --parallel run clean"
+    "lint": "eslint --cache --max-warnings=0 apps/",
+    "format": "prettier --cache --write .",
+    "format:check": "prettier --cache --check .",
+    "clean": "pnpm --parallel run clean",
+    "prepare": "husky install",
+    "deploy": "pnpm --parallel run deploy"
+  },
+  "lint-staged": {
+    "*": [
+      "pnpm run format"
+    ]
   },
   "devDependencies": {
+    "@eslint/js": "^9.31.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^16.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2",
     "typescript": "^5.0.0",
-    "@types/node": "^22.0.0"
+    "typescript-eslint": "^8.37.0"
   },
   "engines": {
     "node": ">=22.0.0",

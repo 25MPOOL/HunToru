@@ -1,21 +1,21 @@
 {
-	// TypeScript設定
-	"typescript.suggest.autoImports": true,
-	"typescript.updateImportsOnFileMove.enabled": "always",
-	"typescript.workspaceSymbols.scope": "allOpenProjects",
-	"typescript.preferences.includePackageJsonAutoImports": "on",
+  // TypeScript設定
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.workspaceSymbols.scope": "allOpenProjects",
+  "typescript.preferences.includePackageJsonAutoImports": "on",
 
-	// パッケージマネージャー設定
-	"npm.packageManager": "pnpm",
+  // パッケージマネージャー設定
+  "npm.packageManager": "pnpm",
 
-	// 検索・ファイル除外設定
-	"search.exclude": {
-	"**/node_modules": true,
-	"**/dist": true,
-	"**/build": true,
-	"**/.next": true,
-	"**/pnpm-lock.yaml": true
-	},
+  // 検索・ファイル除外設定
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.next": true,
+    "**/pnpm-lock.yaml": true
+  },
 
   // 保存時の自動処理
   "editor.codeActionsOnSave": {
@@ -26,5 +26,5 @@
   // エディター基本設定
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "editor.detectIndentation": false,
+  "editor.detectIndentation": false
 }

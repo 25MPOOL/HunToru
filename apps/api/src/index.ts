@@ -1,4 +1,3 @@
-import { error } from "console";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 

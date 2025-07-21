@@ -18,4 +18,4 @@ export interface CameraState {
   isLoading: boolean;
   /** エラーメッセージ */
   error: string | null;
-} 
+}

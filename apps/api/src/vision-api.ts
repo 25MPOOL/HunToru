@@ -68,7 +68,6 @@ export interface VisionApiResponse {
  */
 export async function callVisionAPI({
   image,
-  projectId,
   serviceAccountKey,
 }: {
   image: string;

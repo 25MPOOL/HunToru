@@ -3,6 +3,10 @@
   "name": "huntoru-api",
   "main": "src/index.ts",
   "compatibility_date": "2025-07-18",
+  "vars": {
+    "WEB_URL_DEV": "http://localhost:5173",
+    "WEB_URL_PROD": "https://huntoru-web.pages.dev/",
+  },
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],

@@ -17,7 +17,6 @@ import type { CameraProps } from './types';
 export const Camera: React.FC<CameraProps> = ({ onCapture }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [stream, setStream] = useState<MediaStream | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,8 +31,6 @@ export const Camera: React.FC<CameraProps> = ({ onCapture }) => {
             facingMode: 'environment' // 背面カメラを優先
           }
         });
-
-        setStream(mediaStream);
 
         if (videoRef.current) {
           videoRef.current.srcObject = mediaStream;

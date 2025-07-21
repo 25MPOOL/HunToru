@@ -14,8 +14,6 @@ export interface CameraProps {
  * カメラの状態
  */
 export interface CameraState {
-  /** カメラストリーム */
-  stream: MediaStream | null;
   /** ローディング状態 */
   isLoading: boolean;
   /** エラーメッセージ */

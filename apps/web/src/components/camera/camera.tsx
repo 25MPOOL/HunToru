@@ -48,8 +48,9 @@ export const Camera: React.FC<CameraProps> = ({ onCapture }) => {
 
     // クリーンアップ
     return () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
+      const video = videoRef.current;
+      if (video && video.srcObject) {
+        const stream = video.srcObject as MediaStream;
         stream.getTracks().forEach(track => track.stop());
       }
     };

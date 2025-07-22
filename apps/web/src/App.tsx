@@ -22,8 +22,8 @@ interface ApiResponse {
 
 const API_BASE_URL =
   process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_API_URL_PROD // 本番環境の場合
-    : process.env.REACT_APP_API_URL_DEV; // 開発環境の場合
+    ? import.meta.env.VITE_API_URL_PROD // 本番環境の場合
+    : import.meta.env.VITE_API_URL_DEV; // 開発環境の場合
 
 function App() {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);

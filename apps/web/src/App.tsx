@@ -4,10 +4,26 @@ import { Camera } from "./components";
 
 import "./App.css";
 
+/**
+ * Vision API レスポンスの型定義
+ */
+interface ApiResponse {
+  success: boolean;
+  theme: string;
+  label_score: number;
+  detected_labels: Array<{
+    description: string;
+    score: number;
+  }>;
+  image_properties?: unknown; // 詳細な型定義は後で追加
+  message: string;
+  error?: string;
+}
+
 function App() {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [apiResponse, setApiResponse] = useState<any>(null);
+  const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null);
 
   const sendImageToAPI = async (imageData: string) => {
     setIsLoading(true);
@@ -27,13 +43,17 @@ function App() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const result = await response.json();
+      const result: ApiResponse = await response.json();
       console.log("API レスポンス:", result);
       setApiResponse(result);
     } catch (error) {
       console.error("API送信エラー:", error);
       setApiResponse({
         success: false,
+        theme: "テストお題",
+        label_score: 0,
+        detected_labels: [],
+        message: "",
         error: "画像の送信に失敗しました。",
       });
     } finally {
@@ -103,7 +123,7 @@ function App() {
                     <summary>検出されたラベル</summary>
                     <ul>
                       {apiResponse.detected_labels?.map(
-                        (label: any, index: number) => (
+                        (label, index: number) => (
                           <li key={index}>
                             {label.description}:{" "}
                             {(label.score * 100).toFixed(1)}%

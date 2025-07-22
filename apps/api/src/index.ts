@@ -18,10 +18,6 @@ app.use(
   }),
 );
 
-app.get("/", (c) => {
-  return c.text("Hello Hooonoooooo");
-});
-
 // 画像判定エンドポイント（実際のVision API使用）
 app.post("/judge", async (c) => {
   try {

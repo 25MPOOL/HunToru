@@ -20,6 +20,11 @@ interface ApiResponse {
   error?: string;
 }
 
+const API_BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? import.meta.env.VITE_API_URL_PROD // 本番環境の場合
+    : import.meta.env.VITE_API_URL_DEV; // 開発環境の場合
+
 function App() {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +33,7 @@ function App() {
   const sendImageToAPI = async (imageData: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:8787/judge", {
+      const response = await fetch(`${API_BASE_URL}/judge`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

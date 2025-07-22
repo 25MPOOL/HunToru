@@ -3,24 +3,33 @@ import { cors } from "hono/cors";
 
 import { callVisionAPI } from "./vision-api";
 
-const app = new Hono();
+type Bindings = {
+  WEB_URL_DEV: string;
+  WEB_URL_PROD: string;
+
+  GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY: string;
+  GOOGLE_CLOUD_PROJECT_ID: string;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
 
 app.use(
   "/*",
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://*.pages.dev",
-    ],
+    origin: (origin, c) => {
+      const allowedOrigins = [c.env.WEB_URL_DEV, c.env.WEB_URL_PROD];
+      if (
+        allowedOrigins.includes(origin || "") ||
+        origin?.endsWith(".pages.dev")
+      ) {
+        return origin;
+      }
+      return null;
+    },
     allowMethods: ["GET", "POST", "PUT", "DELETE"],
     allowHeaders: ["Content-Type"],
   }),
 );
-
-app.get("/", (c) => {
-  return c.text("Hello Hooonoooooo");
-});
 
 // 画像判定エンドポイント（実際のVision API使用）
 app.post("/judge", async (c) => {
@@ -35,7 +44,6 @@ app.post("/judge", async (c) => {
     console.log("画像を受信しました:", imageData.substring(0, 50) + "...");
     console.log("お題:", theme || "未指定");
 
-    // 環境変数からサービスアカウントキーを取得
     const serviceAccountKey = c.env?.GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY;
     const projectId = c.env?.GOOGLE_CLOUD_PROJECT_ID;
 

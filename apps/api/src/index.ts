@@ -3,16 +3,29 @@ import { cors } from "hono/cors";
 
 import { callVisionAPI } from "./vision-api";
 
-const app = new Hono();
+type Bindings = {
+  WEB_URL_DEV: string;
+  WEB_URL_PROD: string;
+
+  GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY: string;
+  GOOGLE_CLOUD_PROJECT_ID: string;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
 
 app.use(
   "/*",
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://*.pages.dev",
-    ],
+    origin: (origin, c) => {
+      const allowedOrigins = [c.env.WEB_URL_DEV, c.env.WEB_URL_PROD];
+      if (
+        allowedOrigins.includes(origin || "") ||
+        origin?.endsWith(".pages.dev")
+      ) {
+        return origin;
+      }
+      return null;
+    },
     allowMethods: ["GET", "POST", "PUT", "DELETE"],
     allowHeaders: ["Content-Type"],
   }),

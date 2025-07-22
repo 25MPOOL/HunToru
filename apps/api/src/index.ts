@@ -31,7 +31,6 @@ app.post("/judge", async (c) => {
     console.log("画像を受信しました:", imageData.substring(0, 50) + "...");
     console.log("お題:", theme || "未指定");
 
-    // 環境変数からサービスアカウントキーを取得
     const serviceAccountKey = c.env?.GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY;
     const projectId = c.env?.GOOGLE_CLOUD_PROJECT_ID;
 

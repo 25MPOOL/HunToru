@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+
 import { callVisionAPI } from "./vision-api";
 
 const app = new Hono();

@@ -5,7 +5,7 @@ import { DIFFICULTY } from '../types';
 export const themesTable = sqliteTable('themes', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   difficulty: text('difficulty', { enum: DIFFICULTY }).notNull(),
-  displayText: text('display_text').notNull(),
+  theme: text('theme').notNull().unique(),
   aiCondition: text('ai_condition', { mode: 'json' }).notNull(),
 });
 

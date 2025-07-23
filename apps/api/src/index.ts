@@ -97,7 +97,7 @@ app.post('/judge', async (c) => {
 
     const response = {
       success: true,
-      theme: theme || 'テストお題',
+      theme: theme,
       label_score: labelScore,
       detected_labels: labels.map((label) => ({
         description: label.description,

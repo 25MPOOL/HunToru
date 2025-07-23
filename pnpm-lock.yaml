@@ -46,6 +46,9 @@ importers:
 
   apps/api:
     dependencies:
+      dotenv:
+        specifier: ^17.2.0
+        version: 17.2.0
       drizzle-orm:
         specifier: ^0.44.3
         version: 0.44.3
@@ -2215,6 +2218,13 @@ packages:
         integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==,
       }
     engines: { node: ">=0.10.0" }
+
+  dotenv@17.2.0:
+    resolution:
+      {
+        integrity: sha512-Q4sgBT60gzd0BB0lSyYD3xM4YxrXA9y4uBDof1JNYGzOXrQdQ6yX+7XIAqoFOGQFOTK1D3Hts5OllpxMDZFONQ==,
+      }
+    engines: { node: ">=12" }
 
   drizzle-kit@0.31.4:
     resolution:
@@ -5420,6 +5430,8 @@ snapshots:
   doctrine@2.1.0:
     dependencies:
       esutils: 2.0.3
+
+  dotenv@17.2.0: {}
 
   drizzle-kit@0.31.4:
     dependencies:

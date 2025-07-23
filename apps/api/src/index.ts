@@ -108,11 +108,10 @@ app.post('/judge', async (c) => {
     };
 
     return c.json(response);
-  } catch (error) {
-    console.error('Judge API Error:', error);
+  } catch (e) {
     return c.json(
       {
-        error: 'Internal server error: ' + (error as Error).message,
+        error: 'Internal server error: ' + (e as Error).message,
       },
       500,
     );

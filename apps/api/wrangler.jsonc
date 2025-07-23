@@ -29,7 +29,7 @@
     {
       "binding": "DB",
       "database_name": "huntoru",
-      "database_id": "2b46dd4b-beef-47f0-90f0-81a523871122",
+      "database_id": "f800f013-2169-45c1-b004-3a4c73326ca9",
       "migrations_dir": "drizzle",
     },
   ],

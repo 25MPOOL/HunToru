@@ -9,156 +9,156 @@ const themesToSeed: NewTheme[] = [
   // EASY - 属性系のお題（10個）
   {
     difficulty: 'EASY',
-    displayText: '何か丸いものを撮ろう！',
+    theme: '何か丸いもの',
     aiCondition: { label: 'Circle' },
   },
   {
     difficulty: 'EASY',
-    displayText: '何か光るものを撮ろう！',
+    theme: '何か光るもの',
     aiCondition: { label: 'Light source' },
   },
   {
     difficulty: 'EASY',
-    displayText: '何か柔らかいものを撮ろう！',
+    theme: '何か柔らかいもの',
     aiCondition: { label: 'Soft' },
   },
   {
     difficulty: 'EASY',
-    displayText: '何か透明なものを撮ろう！',
+    theme: '何か透明なもの',
     aiCondition: { label: 'Transparent' },
   },
   {
     difficulty: 'EASY',
-    displayText: '何か四角いものを撮ろう！',
+    theme: '何か四角いもの',
     aiCondition: { label: 'Rectangle' },
   },
   {
     difficulty: 'EASY',
-    displayText: '何か金属製のものを撮ろう！',
+    theme: '何か金属製のもの',
     aiCondition: { label: 'Metal' },
   },
   {
     difficulty: 'EASY',
-    displayText: '何か白いものを撮ろう！',
+    theme: '何か白いもの',
     aiCondition: { label: 'White' },
   },
   {
     difficulty: 'EASY',
-    displayText: '何か小さいものを撮ろう！',
+    theme: '何か小さいもの',
     aiCondition: { label: 'Small' },
   },
   {
     difficulty: 'EASY',
-    displayText: '何か光沢のあるものを撮ろう！',
+    theme: '何か光沢のあるもの',
     aiCondition: { label: 'Shiny' },
   },
   {
     difficulty: 'EASY',
-    displayText: '何か平らなものを撮ろう！',
+    theme: '何か平らなもの',
     aiCondition: { label: 'Flat' },
   },
 
   // NORMAL - 具体的なモノ系のお題（10個）
   {
     difficulty: 'NORMAL',
-    displayText: 'コップを撮ろう！',
+    theme: 'コップ',
     aiCondition: { label: 'Cup' },
   },
   {
     difficulty: 'NORMAL',
-    displayText: '本を撮ろう！',
+    theme: '本',
     aiCondition: { label: 'Book' },
   },
   {
     difficulty: 'NORMAL',
-    displayText: 'スプーンを撮ろう！',
+    theme: 'スプーン',
     aiCondition: { label: 'Spoon' },
   },
   {
     difficulty: 'NORMAL',
-    displayText: 'リモコンを撮ろう！',
+    theme: 'リモコン',
     aiCondition: { label: 'Remote control' },
   },
   {
     difficulty: 'NORMAL',
-    displayText: 'スマートフォンを撮ろう！',
+    theme: 'スマートフォン',
     aiCondition: { label: 'Mobile phone' },
   },
   {
     difficulty: 'NORMAL',
-    displayText: 'ペンを撮ろう！',
+    theme: 'ペン',
     aiCondition: { label: 'Pen' },
   },
   {
     difficulty: 'NORMAL',
-    displayText: '時計を撮ろう！',
+    theme: '時計',
     aiCondition: { label: 'Clock' },
   },
   {
     difficulty: 'NORMAL',
-    displayText: '椅子を撮ろう！',
+    theme: '椅子',
     aiCondition: { label: 'Chair' },
   },
   {
     difficulty: 'NORMAL',
-    displayText: 'テーブルを撮ろう！',
+    theme: 'テーブル',
     aiCondition: { label: 'Table' },
   },
   {
     difficulty: 'NORMAL',
-    displayText: 'ボトルを撮ろう！',
+    theme: 'ボトル',
     aiCondition: { label: 'Bottle' },
   },
 
   // HARD - 形容詞+モノ系のお題（10個）
   {
     difficulty: 'HARD',
-    displayText: '赤いコップを撮ろう！',
+    theme: '赤いコップ',
     aiCondition: { label: 'Cup', property: 'COLOR', value: 'RED' },
   },
   {
     difficulty: 'HARD',
-    displayText: '開いている本を撮ろう！',
+    theme: '開いている本',
     aiCondition: { label: 'Book', attribute: 'open' },
   },
   {
     difficulty: 'HARD',
-    displayText: '黒いスマートフォンを撮ろう！',
+    theme: '黒いスマートフォン',
     aiCondition: { label: 'Mobile phone', property: 'COLOR', value: 'BLACK' },
   },
   {
     difficulty: 'HARD',
-    displayText: '木製の椅子を撮ろう！',
+    theme: '木製の椅子',
     aiCondition: { label: 'Chair', attribute: 'wooden' },
   },
   {
     difficulty: 'HARD',
-    displayText: '青いペンを撮ろう！',
+    theme: '青いペン',
     aiCondition: { label: 'Pen', property: 'COLOR', value: 'BLUE' },
   },
   {
     difficulty: 'HARD',
-    displayText: '透明なボトルを撮ろう！',
+    theme: '透明なボトル',
     aiCondition: { label: 'Bottle', attribute: 'transparent' },
   },
   {
     difficulty: 'HARD',
-    displayText: '白い時計を撮ろう！',
+    theme: '白い時計',
     aiCondition: { label: 'Clock', property: 'COLOR', value: 'WHITE' },
   },
   {
     difficulty: 'HARD',
-    displayText: '金属製のスプーンを撮ろう！',
+    theme: '金属製のスプーン',
     aiCondition: { label: 'Spoon', attribute: 'metal' },
   },
   {
     difficulty: 'HARD',
-    displayText: '大きなテーブルを撮ろう！',
+    theme: '大きなテーブル',
     aiCondition: { label: 'Table', attribute: 'large' },
   },
   {
     difficulty: 'HARD',
-    displayText: '閉じているリモコンを撮ろう！',
+    theme: '閉じているリモコン',
     aiCondition: { label: 'Remote control', attribute: 'closed' },
   },
 ];

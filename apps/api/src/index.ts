@@ -1,9 +1,16 @@
-import { Hono } from "hono";
-import { cors } from "hono/cors";
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+import { drizzle } from 'drizzle-orm/d1';
 
-import { callVisionAPI } from "./vision-api";
+import { DIFFICULTY, type Difficulty } from './types';
+import { callVisionAPI } from './vision-api';
+import * as schema from './db/schema';
+import { D1Database } from '@cloudflare/workers-types';
+import { sql } from 'drizzle-orm';
 
 type Bindings = {
+  DB: D1Database;
+
   WEB_URL_DEV: string;
   WEB_URL_PROD: string;
 
@@ -14,35 +21,35 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>();
 
 app.use(
-  "/*",
+  '/*',
   cors({
     origin: (origin, c) => {
       const allowedOrigins = [c.env.WEB_URL_DEV, c.env.WEB_URL_PROD];
       if (
-        allowedOrigins.includes(origin || "") ||
-        origin?.endsWith(".pages.dev")
+        allowedOrigins.includes(origin || '') ||
+        origin?.endsWith('.pages.dev')
       ) {
         return origin;
       }
       return null;
     },
-    allowMethods: ["GET", "POST", "PUT", "DELETE"],
-    allowHeaders: ["Content-Type"],
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowHeaders: ['Content-Type'],
   }),
 );
 
 // 画像判定エンドポイント（実際のVision API使用）
-app.post("/judge", async (c) => {
+app.post('/judge', async (c) => {
   try {
     const body = await c.req.json();
     const { imageData, theme } = body;
 
-    if (!imageData || !imageData.startsWith("data:image/")) {
-      return c.json({ error: "Invalid image data" }, 400);
+    if (!imageData || !imageData.startsWith('data:image/')) {
+      return c.json({ error: 'Invalid image data' }, 400);
     }
 
-    console.log("画像を受信しました:", imageData.substring(0, 50) + "...");
-    console.log("お題:", theme || "未指定");
+    console.log('画像を受信しました:', imageData.substring(0, 50) + '...');
+    console.log('お題:', theme || '未指定');
 
     const serviceAccountKey = c.env?.GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY;
     const projectId = c.env?.GOOGLE_CLOUD_PROJECT_ID;
@@ -50,14 +57,14 @@ app.post("/judge", async (c) => {
     if (!serviceAccountKey || !projectId) {
       return c.json(
         {
-          error: "Google Cloud credentials not configured",
+          error: 'Google Cloud credentials not configured',
         },
         500,
       );
     }
 
     // base64データ部分のみを抽出（data:image/jpeg;base64,を除去）
-    const base64Image = imageData.split(",")[1];
+    const base64Image = imageData.split(',')[1];
 
     // Vision API呼び出し
     const visionResult = await callVisionAPI({
@@ -68,10 +75,10 @@ app.post("/judge", async (c) => {
 
     // エラーチェック
     if (visionResult.responses[0].error) {
-      console.error("Vision API Error:", visionResult.responses[0].error);
+      console.error('Vision API Error:', visionResult.responses[0].error);
       return c.json(
         {
-          error: "Vision API error: " + visionResult.responses[0].error.message,
+          error: 'Vision API error: ' + visionResult.responses[0].error.message,
         },
         500,
       );
@@ -86,7 +93,7 @@ app.post("/judge", async (c) => {
 
     const response = {
       success: true,
-      theme: theme || "テストお題",
+      theme: theme || 'テストお題',
       label_score: labelScore,
       detected_labels: labels.map((label) => ({
         description: label.description,
@@ -98,11 +105,59 @@ app.post("/judge", async (c) => {
 
     return c.json(response);
   } catch (error) {
-    console.error("Judge API Error:", error);
+    console.error('Judge API Error:', error);
     return c.json(
       {
-        error: "Internal server error: " + (error as Error).message,
+        error: 'Internal server error: ' + (error as Error).message,
       },
+      500,
+    );
+  }
+});
+
+/**
+ * 難易度の文字列が、DIFFICULTY のいずれかかどうかを判定する
+ * @param value 難易度の文字列
+ * @returns true false
+ */
+const isDifficulty = (value: unknown): value is Difficulty => {
+  return (
+    typeof value === 'string' &&
+    (DIFFICULTY as readonly string[]).includes(value)
+  );
+};
+
+/**
+ * 難易度に応じて、Cloudflare D1 のテーブルからお題を取得する
+ * @param difficulty 難易度の文字列
+ * @returns お題の配列
+ */
+app.get('/themes', async (c) => {
+  try {
+    const difficulty = c.req.query('difficulty');
+
+    if (!isDifficulty(difficulty)) {
+      return c.json(
+        { error: 'Invalid or missing difficulty query parameter' },
+        400,
+      );
+    }
+
+    // Drizzle を初期化
+    const db = drizzle(c.env.DB, { schema });
+
+    // 難易度に応じて、Cloudflare D1 のテーブルからお題を取得する
+    const themes = await db
+      .select()
+      .from(schema.themesTable)
+      .where(sql`${schema.themesTable.difficulty} = ${difficulty}`)
+      .orderBy(sql`RANDOM()`)
+      .limit(3);
+
+    return c.json({ themes });
+  } catch (e) {
+    return c.json(
+      { error: 'Failed to fetch themes', message: (e as Error).message },
       500,
     );
   }

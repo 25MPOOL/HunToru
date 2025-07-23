@@ -48,8 +48,12 @@ app.post('/judge', async (c) => {
       return c.json({ error: 'Invalid image data' }, 400);
     }
 
+    if (!theme || typeof theme !== 'string') {
+      return c.json({ error: 'Theme is required and must be a string' }, 400);
+    }
+
     console.log('画像を受信しました:', imageData.substring(0, 50) + '...');
-    console.log('お題:', theme || '未指定');
+    console.log('判定するお題:', theme);
 
     const serviceAccountKey = c.env?.GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY;
     const projectId = c.env?.GOOGLE_CLOUD_PROJECT_ID;

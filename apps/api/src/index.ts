@@ -1,5 +1,5 @@
 import { D1Database } from '@cloudflare/workers-types';
-import { sql } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
@@ -153,7 +153,7 @@ app.get('/themes', async (c) => {
     const themes = await db
       .select()
       .from(schema.themesTable)
-      .where(sql`${schema.themesTable.difficulty} = ${difficulty}`)
+      .where(eq(schema.themesTable.difficulty, difficulty))
       .orderBy(sql`RANDOM()`)
       .limit(3);
 

@@ -1,8 +1,9 @@
+import { D1Database } from '@cloudflare/workers-types';
 import { drizzle } from 'drizzle-orm/d1';
 import { getPlatformProxy } from 'wrangler';
-import * as schema from '../db/schema';
+
 import type { NewTheme } from '../db/schema';
-import { D1Database } from '@cloudflare/workers-types';
+import * as schema from '../db/schema';
 
 const themesToSeed: NewTheme[] = [
   // EASY - 属性系のお題（10個）

@@ -1,12 +1,12 @@
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
-import { drizzle } from 'drizzle-orm/d1';
-
-import { DIFFICULTY, type Difficulty } from './types';
-import { callVisionAPI } from './vision-api';
-import * as schema from './db/schema';
 import { D1Database } from '@cloudflare/workers-types';
 import { sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/d1';
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+
+import * as schema from './db/schema';
+import { DIFFICULTY, type Difficulty } from './types';
+import { callVisionAPI } from './vision-api';
 
 type Bindings = {
   DB: D1Database;

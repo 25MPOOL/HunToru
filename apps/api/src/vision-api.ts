@@ -89,12 +89,12 @@ export async function callVisionAPI({
         },
         features: [
           {
-            type: "LABEL_DETECTION",
+            type: 'LABEL_DETECTION',
             maxResults: 10,
           },
           // ハードモード用に色情報も取得
           {
-            type: "IMAGE_PROPERTIES",
+            type: 'IMAGE_PROPERTIES',
           },
         ],
       },
@@ -105,10 +105,10 @@ export async function callVisionAPI({
   const response = await fetch(
     `https://vision.googleapis.com/v1/images:annotate`,
     {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(requestBody),
     },
@@ -135,13 +135,13 @@ async function getAccessToken(
   const jwt = await createJWT(credentials);
 
   // 2. OAuth2 token endpoint でアクセストークン取得
-  const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
-    method: "POST",
+  const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
-      grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
       assertion: jwt,
     }),
   });
@@ -167,16 +167,16 @@ async function createJWT(
 
   // JWT Header
   const header = {
-    alg: "RS256",
-    typ: "JWT",
+    alg: 'RS256',
+    typ: 'JWT',
     kid: credentials.private_key_id,
   };
 
   // JWT Payload
   const payload = {
     iss: credentials.client_email,
-    scope: "https://www.googleapis.com/auth/cloud-vision",
-    aud: "https://oauth2.googleapis.com/token",
+    scope: 'https://www.googleapis.com/auth/cloud-vision',
+    aud: 'https://oauth2.googleapis.com/token',
     exp: now + 3600, // 1時間後に期限切れ
     iat: now,
   };
@@ -206,7 +206,7 @@ async function signRS256(data: string, privateKeyPem: string): Promise<string> {
   const dataBuffer = encoder.encode(data);
 
   const signatureBuffer = await crypto.subtle.sign(
-    "RSASSA-PKCS1-v1_5",
+    'RSASSA-PKCS1-v1_5',
     privateKey,
     dataBuffer,
   );
@@ -221,21 +221,21 @@ async function signRS256(data: string, privateKeyPem: string): Promise<string> {
 async function importPrivateKey(pemKey: string): Promise<CryptoKey> {
   // PEMヘッダー・フッター除去とbase64デコード
   const pemContents = pemKey
-    .replace(/-----BEGIN PRIVATE KEY-----/, "")
-    .replace(/-----END PRIVATE KEY-----/, "")
-    .replace(/\s/g, "");
+    .replace(/-----BEGIN PRIVATE KEY-----/, '')
+    .replace(/-----END PRIVATE KEY-----/, '')
+    .replace(/\s/g, '');
 
   const keyBuffer = base64Decode(pemContents);
 
   return await crypto.subtle.importKey(
-    "pkcs8",
+    'pkcs8',
     keyBuffer,
     {
-      name: "RSASSA-PKCS1-v1_5",
-      hash: "SHA-256",
+      name: 'RSASSA-PKCS1-v1_5',
+      hash: 'SHA-256',
     },
     false,
-    ["sign"],
+    ['sign'],
   );
 }
 
@@ -244,7 +244,7 @@ async function importPrivateKey(pemKey: string): Promise<CryptoKey> {
  */
 function base64UrlEncode(data: string): string {
   const base64 = btoa(data);
-  return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 }
 
 /**
@@ -252,12 +252,12 @@ function base64UrlEncode(data: string): string {
  */
 function base64UrlEncodeBuffer(buffer: ArrayBuffer): string {
   const bytes = new Uint8Array(buffer);
-  let binary = "";
+  let binary = '';
   for (let i = 0; i < bytes.byteLength; i++) {
     binary += String.fromCharCode(bytes[i]);
   }
   const base64 = btoa(binary);
-  return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 }
 
 /**

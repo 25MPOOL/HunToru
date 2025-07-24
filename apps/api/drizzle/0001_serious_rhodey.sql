@@ -1,0 +1,1 @@
+ALTER TABLE `themes` RENAME COLUMN "display_text" TO "theme";

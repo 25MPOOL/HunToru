@@ -1,5 +1,5 @@
 /**
  * カメラコンポーネントのメインエクスポート
  */
-export { Camera } from "./camera";
-export type { CameraProps, CameraState } from "./types";
+export { Camera } from './camera';
+export type { CameraProps, CameraState } from './types';

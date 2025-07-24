@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Camera } from "./components";
+import { Camera } from './components';
 
-import "./App.css";
+import './App.css';
 
 /**
  * Vision API レスポンスの型定義
@@ -21,7 +21,7 @@ interface ApiResponse {
 }
 
 const API_BASE_URL =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === 'production'
     ? import.meta.env.VITE_API_URL_PROD // 本番環境の場合
     : import.meta.env.VITE_API_URL_DEV; // 開発環境の場合
 
@@ -34,13 +34,13 @@ function App() {
     setIsLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/judge`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           imageData: imageData,
-          theme: "テストお題",
+          theme: 'テストお題',
         }),
       });
 
@@ -49,17 +49,17 @@ function App() {
       }
 
       const result: ApiResponse = await response.json();
-      console.log("API レスポンス:", result);
+      console.log('API レスポンス:', result);
       setApiResponse(result);
     } catch (error) {
-      console.error("API送信エラー:", error);
+      console.error('API送信エラー:', error);
       setApiResponse({
         success: false,
-        theme: "テストお題",
+        theme: 'テストお題',
         label_score: 0,
         detected_labels: [],
-        message: "",
-        error: "画像の送信に失敗しました。",
+        message: '',
+        error: '画像の送信に失敗しました。',
       });
     } finally {
       setIsLoading(false);
@@ -68,7 +68,7 @@ function App() {
 
   const handleImageCapture = (imageData: string) => {
     setCapturedImage(imageData);
-    console.log("画像が撮影されました:", imageData.substring(0, 50) + "...");
+    console.log('画像が撮影されました:', imageData.substring(0, 50) + '...');
 
     sendImageToAPI(imageData);
   };
@@ -83,7 +83,7 @@ function App() {
       <h1>HunToru カメラテスト</h1>
 
       {!capturedImage ? (
-        <div style={{ position: "relative", width: "100%", height: "70vh" }}>
+        <div style={{ position: 'relative', width: '100%', height: '70vh' }}>
           <Camera onCapture={handleImageCapture} />
         </div>
       ) : (
@@ -92,11 +92,11 @@ function App() {
           <img
             src={capturedImage}
             alt="撮影された画像"
-            style={{ maxWidth: "100%", height: "auto", marginBottom: "20px" }}
+            style={{ maxWidth: '100%', height: 'auto', marginBottom: '20px' }}
           />
 
           {isLoading && (
-            <div style={{ margin: "20px 0" }}>
+            <div style={{ margin: '20px 0' }}>
               <p>🤖 AI が画像を評価中...</p>
             </div>
           )}
@@ -104,18 +104,18 @@ function App() {
           {apiResponse && !isLoading && (
             <div
               style={{
-                margin: "20px 0",
-                padding: "15px",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                backgroundColor: apiResponse.success ? "#f0f8f0" : "#f8f0f0",
+                margin: '20px 0',
+                padding: '15px',
+                border: '1px solid #ddd',
+                borderRadius: '8px',
+                backgroundColor: apiResponse.success ? '#f0f8f0' : '#f8f0f0',
               }}
             >
               <h3>🎯 AI判定結果</h3>
               {apiResponse.success ? (
                 <>
                   <p>
-                    <strong>スコア:</strong>{" "}
+                    <strong>スコア:</strong>{' '}
                     {(apiResponse.label_score * 100).toFixed(1)}%
                   </p>
                   <p>
@@ -124,13 +124,13 @@ function App() {
                   <p>
                     <strong>メッセージ:</strong> {apiResponse.message}
                   </p>
-                  <details style={{ marginTop: "10px" }}>
+                  <details style={{ marginTop: '10px' }}>
                     <summary>検出されたラベル</summary>
                     <ul>
                       {apiResponse.detected_labels?.map(
                         (label, index: number) => (
                           <li key={index}>
-                            {label.description}:{" "}
+                            {label.description}:{' '}
                             {(label.score * 100).toFixed(1)}%
                           </li>
                         ),
@@ -139,7 +139,7 @@ function App() {
                   </details>
                 </>
               ) : (
-                <p style={{ color: "red" }}>❌ {apiResponse.error}</p>
+                <p style={{ color: 'red' }}>❌ {apiResponse.error}</p>
               )}
             </div>
           )}
@@ -147,13 +147,13 @@ function App() {
           <button
             onClick={handleRetake}
             style={{
-              marginTop: "10px",
-              padding: "10px 20px",
-              backgroundColor: "#007bff",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
+              marginTop: '10px',
+              padding: '10px 20px',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
             }}
           >
             もう一度撮影

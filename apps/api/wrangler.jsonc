@@ -25,13 +25,14 @@
   //     "bucket_name": "my-bucket"
   //   }
   // ],
-  // "d1_databases": [
-  //   {
-  //     "binding": "MY_DB",
-  //     "database_name": "my-database",
-  //     "database_id": ""
-  //   }
-  // ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "huntoru",
+      "database_id": "f800f013-2169-45c1-b004-3a4c73326ca9",
+      "migrations_dir": "drizzle",
+    },
+  ],
   // "ai": {
   //   "binding": "AI"
   // },

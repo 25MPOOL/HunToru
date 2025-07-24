@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1753286254288,
+      "tag": "0000_condemned_gamora",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1753297082855,
+      "tag": "0001_serious_rhodey",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1753297843130,
+      "tag": "0002_secret_randall_flagg",
+      "breakpoints": true
+    }
+  ]
+}

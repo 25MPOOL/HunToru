@@ -155,7 +155,7 @@ app.get('/themes', async (c) => {
       .from(schema.themesTable)
       .where(eq(schema.themesTable.difficulty, difficulty))
       .orderBy(sql`RANDOM()`)
-      .limit(3);
+      .limit(1);
 
     return c.json({ themes });
   } catch (e) {

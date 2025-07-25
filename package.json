@@ -14,8 +14,9 @@
     "deploy": "pnpm --parallel run deploy"
   },
   "lint-staged": {
-    "*": [
-      "pnpm run format"
+    "apps/**/*.{ts,tsx,js,jsx}": [
+      "pnpm run format",
+      "pnpm run lint --fix"
     ]
   },
   "devDependencies": {

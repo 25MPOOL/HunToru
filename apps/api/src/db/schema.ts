@@ -6,7 +6,6 @@ export const themesTable = sqliteTable('themes', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   difficulty: text('difficulty', { enum: DIFFICULTY }).notNull(),
   theme: text('theme').notNull().unique(),
-  aiCondition: text('ai_condition', { mode: 'json' }).notNull(),
 });
 
 export type Theme = typeof themesTable.$inferSelect;

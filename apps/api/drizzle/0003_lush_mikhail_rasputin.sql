@@ -1,0 +1,1 @@
+ALTER TABLE `themes` DROP COLUMN `ai_condition`;

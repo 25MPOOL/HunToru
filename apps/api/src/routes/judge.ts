@@ -101,7 +101,6 @@ app.openapi(judgeRoute, async (c) => {
     const base64Image = imageData.split(',')[1];
     const visionResult = await callVisionAPI({
       image: base64Image,
-      projectId,
       serviceAccountKey,
     });
 

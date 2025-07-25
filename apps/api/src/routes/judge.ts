@@ -25,7 +25,8 @@ const JudgeResponseSchema = z.object({
   reason: z.string().openapi({
     example: '写真からは、赤いコップが写っていることがわかったよ！',
   }),
-  fatnessMultiplier: z.number().openapi({ example: 1.85 }),
+  isMatch: z.boolean().openapi({ example: true }),
+  scoreEffect: z.number().openapi({ example: 1.0 }),
   detectedLabels: z
     .array(z.string())
     .openapi({ example: ['Cup', 'Red', 'Dish'] }),
@@ -37,6 +38,9 @@ const ErrorResponseSchema = z.object({
     description: 'エラーの内容',
   }),
 });
+
+// NOTE: 判定結果がこれより高い場合は、お題に近いと判定する
+const CLEAR_THRESHOLD = 0.5;
 
 const app = new OpenAPIHono<{ Bindings: Env }>();
 
@@ -100,6 +104,7 @@ app.openapi(judgeRoute, async (c) => {
       projectId,
       serviceAccountKey,
     });
+
     const labels =
       visionResult.responses[0].labelAnnotations?.map((l) => l.description) ??
       [];
@@ -111,12 +116,16 @@ app.openapi(judgeRoute, async (c) => {
     };
     const judgeResult = await callGeminiAPI(geminiParams);
 
+    const isMatch = judgeResult.score >= CLEAR_THRESHOLD;
+    const scoreEffect = isMatch ? judgeResult.score : -1.0;
+
     const responseData: z.infer<typeof JudgeResponseSchema> = {
       success: true,
       theme,
       score: judgeResult.score,
       reason: judgeResult.reason,
-      fatnessMultiplier: 1 + judgeResult.score,
+      isMatch,
+      scoreEffect,
       detectedLabels: labels,
     };
 

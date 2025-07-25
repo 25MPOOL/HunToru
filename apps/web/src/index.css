@@ -1,0 +1,25 @@
+/* グローバルリセット */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  background-color: #f5e6d3;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Courier New', monospace;
+}
+
+/* レトロゲーム風フォント */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.retro-font {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+}
+
+/* ピクセルアート風の画像レンダリング */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}

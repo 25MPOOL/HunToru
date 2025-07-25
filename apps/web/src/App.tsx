@@ -1,59 +1,48 @@
 import { useState } from 'react';
 
-import { GameScreen } from './components/game/game-screen';
-import type { JudgeResult } from './components/game/types';
-
-import './App.css';
+import { ShootingScreen } from './components/game/shooting-screen';
+import type { Theme, JudgeResult } from './components/game/types';
+import styles from './App.module.css';
 
 function App() {
-  const [gameResult, setGameResult] = useState<JudgeResult | null>(null);
-  const [showGame, setShowGame] = useState(true);
-
-  const handleGameEnd = (result: JudgeResult) => {
-    setGameResult(result);
-    setShowGame(false);
+  // テスト用のお題データ
+  const testTheme: Theme = {
+    id: 1,
+    difficulty: 'NORMAL',
+    theme: 'テスト', // 実際は1・2枚目から渡される
+    aiCondition: { label: 'Test' },
   };
 
-  const handleStartNewGame = () => {
-    setGameResult(null);
-    setShowGame(true);
+  const [showShooting, setShowShooting] = useState(true);
+  const [result, setResult] = useState<JudgeResult | null>(null);
+
+  const handleComplete = (judgeResult: JudgeResult) => {
+    setResult(judgeResult);
+    setShowShooting(false);
+    console.log('撮影完了:', judgeResult);
+    // 実際は4枚目（結果画面）に遷移
+  };
+
+  const handleRetry = () => {
+    setResult(null);
+    setShowShooting(true);
   };
 
   return (
-    <div className="app">
-      {showGame ? (
-        <GameScreen onGameEnd={handleGameEnd} />
+    <div className={styles.app}>
+      {showShooting ? (
+        <ShootingScreen theme={testTheme} onComplete={handleComplete} />
       ) : (
-        <div
-          style={{
-            padding: '20px',
-            textAlign: 'center',
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-          }}
-        >
-          <h1>🎉 ゲーム終了！</h1>
-          {gameResult && (
-            <div style={{ marginBottom: '30px' }}>
-              <p>最終スコア: {(gameResult.label_score * 100).toFixed(1)}%</p>
-              <p>{gameResult.success ? '🎯 成功！' : '😅 次回頑張ろう！'}</p>
+        <div className={styles.testResult}>
+          <h1 className={styles.testResultTitle}>テスト完了</h1>
+          {result && (
+            <div className={styles.testResultContent}>
+              <p>スコア: {(result.label_score * 100).toFixed(1)}%</p>
+              <p>結果: {result.success ? '成功' : '失敗'}</p>
             </div>
           )}
-          <button
-            onClick={handleStartNewGame}
-            style={{
-              padding: '15px 30px',
-              backgroundColor: '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: '16px',
-              cursor: 'pointer',
-            }}
-          >
-            新しいゲームを始める
+          <button className={styles.testResultButton} onClick={handleRetry}>
+            もう一度テスト
           </button>
         </div>
       )}

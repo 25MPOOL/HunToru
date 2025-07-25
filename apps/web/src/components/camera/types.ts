@@ -19,3 +19,10 @@ export interface CameraState {
   /** エラーメッセージ */
   error: string | null;
 }
+
+/**
+ * カメラコンポーネントのRef（外部から撮影をトリガー）
+ */
+export interface CameraRef {
+  capture: () => void;
+}

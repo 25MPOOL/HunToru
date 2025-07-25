@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import type { TimerProps } from './types';
+import styles from './timer.module.css';
 
 /**
  * ゲーム用カウントダウンタイマーコンポーネント
@@ -58,58 +59,26 @@ export const Timer: React.FC<TimerProps> = ({
   const getTimerColor = () => {
     if (timeLeft <= 10) return '#ff4444';
     if (timeLeft <= 30) return '#ff8800';
-    return '#007bff';
+    return '#F5E6D3';
   };
 
   // 時間を MM:SS 形式でフォーマット
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
   return (
-    <div
-      className="timer-container"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '10px',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        borderRadius: '8px',
-        color: 'white',
-        minWidth: '100px',
-      }}
-    >
-      <div
-        style={{
-          fontSize: '24px',
-          fontWeight: 'bold',
-          color: getTimerColor(),
-          fontFamily: 'monospace',
-        }}
+    <div className={styles.timerContainer}>
+      <span className={styles.timerIcon}>⏳</span>
+      <span
+        className={`${styles.timerText} ${timeLeft <= 10 ? styles.timerUrgent : ''}`}
+        style={{ color: getTimerColor() }}
       >
-        {formatTime(timeLeft)}
-      </div>
-      {timeLeft <= 10 && (
-        <div
-          style={{
-            fontSize: '10px',
-            color: '#ff4444',
-            marginTop: '2px',
-            animation: 'blink 1s infinite',
-          }}
-        >
-          急いで！
-        </div>
-      )}
-      <style>{`
-        @keyFrames blink {
-          0%m 50% { opacity: 1; }
-          51%, 100% { opacity: 0.3; }
-        }
-      `}</style>
+        制限時間 {formatTime(timeLeft)}
+      </span>
+      {timeLeft <= 10 && <div className={styles.urgentMessage}>急いで！</div>}
     </div>
   );
 };

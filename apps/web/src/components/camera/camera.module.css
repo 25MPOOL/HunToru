@@ -1,0 +1,45 @@
+/* カメラコンテナ */
+.cameraContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #000000;
+}
+
+/* カメラプレビュー */
+.cameraPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* アスペクト比を保ちながらフィット */
+  background-color: #000000;
+}
+
+/* ローディング表示 */
+.cameraLoading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #000000;
+}
+
+/* エラー表示 */
+.cameraError {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Camera内の撮影ボタンは非表示 */
+.hiddenCaptureButton {
+  display: none;
+}

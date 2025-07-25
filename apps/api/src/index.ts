@@ -6,7 +6,7 @@ import { cors } from 'hono/cors';
 
 import * as schema from './db/schema';
 import { DIFFICULTY, type Difficulty } from './types';
-import { callVisionAPI } from './vision-api';
+import { callVisionAPI } from './services/google/vision-api';
 
 type Bindings = {
   DB: D1Database;

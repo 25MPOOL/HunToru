@@ -1,6 +1,11 @@
 import { Hono } from 'hono';
 import type { Env } from '../types';
 import { callVisionAPI } from '../services/google/vision-api';
+import {
+  callGeminiAPI,
+  type CallGeminiAPIParams,
+  type CallGeminiAPIResponse,
+} from '../services/google/gemini-api';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -20,8 +25,9 @@ app.post('/judge', async (c) => {
 
     const serviceAccountKey = c.env.GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY;
     const projectId = c.env.GOOGLE_CLOUD_PROJECT_ID;
+    const geminiApiKey = c.env.GEMINI_API_KEY;
 
-    if (!serviceAccountKey || !projectId) {
+    if (!serviceAccountKey || !projectId || !geminiApiKey) {
       return c.json(
         {
           error: 'Google Cloud の認証情報が設定されていません',
@@ -33,46 +39,33 @@ app.post('/judge', async (c) => {
     const base64Image = imageData.split(',')[1];
     const visionResult = await callVisionAPI({
       image: base64Image,
-      projectId: projectId,
-      serviceAccountKey: serviceAccountKey,
+      projectId,
+      serviceAccountKey,
     });
+    const labels =
+      visionResult.responses[0].labelAnnotations?.map(
+        (label) => label.description,
+      ) ?? [];
 
-    // エラーチェック
-    if (visionResult.responses[0].error) {
-      console.error('Vision API Error:', visionResult.responses[0].error);
-      return c.json(
-        {
-          error: 'Vision API error: ' + visionResult.responses[0].error.message,
-        },
-        500,
-      );
-    }
+    const geminiParams: CallGeminiAPIParams = {
+      theme,
+      labels,
+      apiKey: geminiApiKey,
+    };
+    const judgeResult: CallGeminiAPIResponse =
+      await callGeminiAPI(geminiParams);
 
-    const labels = visionResult.responses[0].labelAnnotations || [];
-    const imageProperties = visionResult.responses[0].imagePropertiesAnnotation;
-
-    // 最高スコアのラベルを取得
-    const bestLabel = labels.length > 0 ? labels[0] : null;
-    const labelScore = bestLabel ? bestLabel.score : 0;
-
-    const response = {
+    return c.json({
       success: true,
       theme: theme,
-      label_score: labelScore,
-      detected_labels: labels.map((label) => ({
-        description: label.description,
-        score: label.score,
-      })),
-      image_properties: imageProperties,
-      message: `画像を正常に解析しました。${labels.length}個のラベルを検出。`,
-    };
-
-    return c.json(response);
+      score: judgeResult.score,
+      reason: judgeResult.reason,
+      fatnessMultiplier: 1 + judgeResult.score,
+      detected_labels: labels,
+    });
   } catch (e) {
     return c.json(
-      {
-        error: 'エラーが発生しました: ' + (e as Error).message,
-      },
+      { error: 'エラーが発生しました: ' + (e as Error).message },
       500,
     );
   }

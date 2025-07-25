@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { ShootingScreen } from './components/game/shooting-screen';
-import type { Theme, JudgeResult } from './components/game/types';
 import styles from './App.module.css';
+import { ShootingScreen } from './components/game/shooting-screen';
+import type { JudgeResult, Theme } from './components/game/types';
 
 function App() {
   // テスト用のお題データ

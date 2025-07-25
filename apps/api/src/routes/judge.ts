@@ -1,4 +1,4 @@
-import type { Env } from '../types';
+import { DIFFICULTY, type Env } from '../types';
 import { callVisionAPI } from '../services/google/vision-api';
 import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
 import { z } from 'zod';
@@ -16,6 +16,10 @@ const JudgeRequestSchema = z.object({
     example: 'data:image/jpeg;base64,/9j/4AAQ...',
     description: 'Base64エンコードされた画像データ',
   }),
+  difficulty: z.enum(DIFFICULTY).openapi({
+    example: 'HARD',
+    description: '難易度',
+  }),
 });
 
 const JudgeResponseSchema = z.object({
@@ -30,6 +34,19 @@ const JudgeResponseSchema = z.object({
   detectedLabels: z
     .array(z.string())
     .openapi({ example: ['Cup', 'Red', 'Dish'] }),
+  dominantColors: z
+    .array(
+      z.object({
+        red: z.number(),
+        green: z.number(),
+        blue: z.number(),
+      }),
+    )
+    .optional()
+    .openapi({
+      description: '画像の主要な色のRGB',
+      example: [{ red: 256, green: 0, blue: 0 }],
+    }),
 });
 
 const ErrorResponseSchema = z.object({
@@ -83,7 +100,7 @@ const judgeRoute = createRoute({
  */
 app.openapi(judgeRoute, async (c) => {
   try {
-    const { imageData, theme } = c.req.valid('json');
+    const { imageData, theme, difficulty } = c.req.valid('json');
 
     const serviceAccountKey = c.env.GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY;
     const projectId = c.env.GOOGLE_CLOUD_PROJECT_ID;
@@ -107,11 +124,17 @@ app.openapi(judgeRoute, async (c) => {
     const labels =
       visionResult.responses[0].labelAnnotations?.map((l) => l.description) ??
       [];
+    const colors =
+      visionResult.responses[0].imagePropertiesAnnotation?.dominantColors.colors.map(
+        (c) => c.color,
+      ) ?? [];
 
     const geminiParams: CallGeminiAPIParams = {
+      apiKey: geminiApiKey,
+      difficulty,
       theme,
       labels,
-      apiKey: geminiApiKey,
+      colors,
     };
     const judgeResult = await callGeminiAPI(geminiParams);
 
@@ -126,6 +149,7 @@ app.openapi(judgeRoute, async (c) => {
       isMatch,
       scoreEffect,
       detectedLabels: labels,
+      dominantColors: colors,
     };
 
     return c.json(responseData, 200);

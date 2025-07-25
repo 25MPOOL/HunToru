@@ -1,3 +1,5 @@
+import type { Difficulty } from '../../types';
+
 // =================================================================
 // Constants
 // =================================================================
@@ -10,28 +12,31 @@ const MODEL_NAME = 'gemini-1.5-flash';
  * Gemini API に投げるプロンプト
  * - {theme}: 判定対象のお題に置換される
  * - {labels}: Vision API が検出したラベルのリストに置換される
+ * - {colors}: Vision API が検出した主要な色の情報に置換される
  */
 const PROMPT_TEMPLATE = `
-あなたは「HunToruくん」という、元気で少しおっちょこちょいなキャラクターです。
-ユーザーから提示された「テーマ」と、画像から検出された「ラベルリスト」を評価し、以下の思考プロセスに従って応答を生成してください。
+あなたは「HunToruくん」というキャラクターです。
+ユーザーから提示された「テーマ」、「ラベルリスト」、「主要な色の情報」を評価します。
+以下の思考プロセスに従って応答を生成してください。
 
 # 思考プロセス
-1. まず、英語の「ラベルリスト」の中から、テーマに最も関連性の高いキーワードを1つか2つ選びます。
-2. 次に、選んだキーワードを自然な日本語に翻訳します。（例: "Electronic device" -> "電子機器", "Computer keyboard" -> "キーボード"）
-3. 最後に、翻訳した日本語を使って、下記のルールに従って「理由（reason）」のセリフを作成します。
+1. まず、英語の「ラベルリスト」の中から、テーマに最も関連性の高いキーワードを1つ選び、自然な日本語に翻訳します。
+2. 次に、「主要な色の情報」が "N/A" でない場合は、その色情報もテーマと合致しているか厳密に評価します。
+3. 最後に、評価に基づいて「理由（reason）」のセリフを作成します。
 
 # 「reason」のセリフ作成ルール
-- 【重要】セリフは必ず20文字程度の、簡潔な一言にしてください。
-- 評価スコアが高く、テーマに合っている場合: 「〇〇、みーっけ！やったね！」のように、翻訳した日本語のキーワードを使って元気に報告する。
-- 評価スコアが低く、テーマに合っていない場合: 「うーん、これは〇〇かな？お題とは違うみたい…」のように、翻訳した日本語のキーワードを使って少し困った様子で報告する。
+- セリフは簡潔な一言にします。
+- 評価スコアが高い場合: 「〇〇、みーっけ！やったね！」のように元気に報告します。
+- 評価スコアが低い場合: 「うーん、これは〇〇かな？お題とは違うみたい…」のように少し困った様子で報告します。
 
 # 出力形式
 評価に基づき、類似度スコアを0.0から1.0の間で算出し、必ず以下のJSON形式で結果を返してください。
-{ "score": 0.85, "reason": "ここにHunToruくんとしての短く元気な日本語のセリフを記述" }
+{ "score": 0.85, "reason": "理由を記述" }
 
 ---
 テーマ: "{theme}"
 ラベルリスト: [{labels}]
+主要な色の情報 (RGB): {colors}
 `;
 
 // =================================================================
@@ -39,9 +44,15 @@ const PROMPT_TEMPLATE = `
 // =================================================================
 
 export interface CallGeminiAPIParams {
-  theme: string;
-  labels: string[];
   apiKey: string;
+  difficulty: Difficulty;
+  theme: string;
+  labels: Array<string>;
+  colors: Array<{
+    red: number;
+    green: number;
+    blue: number;
+  }>;
 }
 
 interface CallGeminiAPIResponse {
@@ -61,14 +72,17 @@ interface CallGeminiAPIResponse {
 export async function callGeminiAPI(
   params: CallGeminiAPIParams,
 ): Promise<CallGeminiAPIResponse> {
-  const { theme, labels, apiKey } = params;
+  const { theme, labels, apiKey, difficulty, colors } = params;
 
   const endpoint = `${API_ENDPOINT_BASE}/${MODEL_NAME}:generateContent?key=${apiKey}`;
-  const labelString = labels.map((label) => `"${label}"`).join(', ');
-  const prompt = PROMPT_TEMPLATE.replace('{theme}', theme).replace(
-    '{labels}',
-    labelString,
-  );
+
+  const labelString = `"${labels.join('", "')}"`;
+  const colorInfo =
+    difficulty === 'HARD' && colors ? JSON.stringify(colors) : 'N/A';
+
+  const prompt = PROMPT_TEMPLATE.replace('{theme}', theme)
+    .replace('{labels}', labelString)
+    .replace('{colors}', colorInfo);
 
   const requestBody = {
     contents: [{ parts: [{ text: prompt }] }],

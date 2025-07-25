@@ -1,11 +1,13 @@
-import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { swaggerUI } from '@hono/swagger-ui';
 
 import type { Env } from './types';
 import { themesRoutes } from './routes/themes';
 import { judgeRoutes } from './routes/judge';
 
-const app = new Hono<{ Bindings: Env }>();
+import { OpenAPIHono } from '@hono/zod-openapi';
+
+const app = new OpenAPIHono<{ Bindings: Env }>();
 
 /**
  * CORS 設定
@@ -31,6 +33,14 @@ app.use(
 app.route('/', judgeRoutes);
 app.route('/', themesRoutes);
 
-app.get('/', (c) => c.text('Hello HunToru API!'));
+app.doc('/doc', {
+  openapi: '3.0.0',
+  info: {
+    title: 'HunToru API',
+    version: '1.0.0',
+  },
+});
+
+app.get('/ui', swaggerUI({ url: '/doc' }));
 
 export default app;

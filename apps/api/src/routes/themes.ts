@@ -1,30 +1,96 @@
-import { Hono } from 'hono';
 import { drizzle } from 'drizzle-orm/d1';
 import { eq, sql } from 'drizzle-orm';
 import * as schema from '../db/schema';
-import type { Env, Difficulty } from '../types';
+import type { Env } from '../types';
 import { DIFFICULTY } from '../types';
+import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
+import { z } from 'zod';
 
-const app = new Hono<{ Bindings: Env }>();
+const ThemeSchema = z.object({
+  id: z.number().openapi({
+    example: 1,
+    description: 'お題のID',
+  }),
+  difficulty: z.enum(DIFFICULTY).openapi({
+    example: 'EASY',
+    description: '難易度レベル',
+  }),
+  theme: z.string().openapi({
+    example: '赤いコップ',
+    description: 'お題の内容',
+  }),
+});
 
-const isDifficulty = (value: unknown): value is Difficulty => {
-  return (
-    typeof value === 'string' &&
-    (DIFFICULTY as readonly string[]).includes(value)
-  );
-};
+const ThemesResponseSchema = z.object({
+  themes: z.array(ThemeSchema).openapi({
+    description: '取得されたお題の配列',
+  }),
+});
+
+const ErrorResponseSchema = z.object({
+  error: z.string().openapi({
+    example: 'お題の取得に失敗しました',
+    description: 'エラーの内容',
+  }),
+  message: z.string().optional().openapi({
+    example: 'Database connection failed',
+    description: '詳細なエラーメッセージ',
+  }),
+});
+
+const app = new OpenAPIHono<{ Bindings: Env }>();
+
+const themesRoute = createRoute({
+  method: 'get',
+  path: '/themes',
+  request: {
+    query: z.object({
+      difficulty: z.enum(DIFFICULTY).openapi({
+        param: {
+          name: 'difficulty',
+          in: 'query',
+        },
+        example: 'EASY',
+        description: '取得したいお題の難易度レベル',
+      }),
+    }),
+  },
+  responses: {
+    200: {
+      content: {
+        'application/json': {
+          schema: ThemesResponseSchema,
+        },
+      },
+      description: 'お題取得成功時のレスポンス',
+    },
+    400: {
+      content: {
+        'application/json': {
+          schema: ErrorResponseSchema,
+        },
+      },
+      description: '不正な難易度パラメータが指定された場合',
+    },
+    500: {
+      content: {
+        'application/json': {
+          schema: ErrorResponseSchema,
+        },
+      },
+      description: 'サーバー内でエラーが発生した場合',
+    },
+  },
+});
 
 /**
- * 難易度に応じて、Cloudflare D1 のテーブルからお題を取得する
- * @param difficulty 難易度の文字列
- * @returns お題の配列
+ * 難易度に応じて、Cloudflare D1 のテーブルからお題をランダムに1つ取得する
+ * @param difficulty 難易度レベル (EASY, NORMAL, HARD)
+ * @returns お題の配列（1件）
  */
-app.get('/themes', async (c) => {
+app.openapi(themesRoute, async (c) => {
   try {
-    const difficulty = c.req.query('difficulty');
-    if (!isDifficulty(difficulty)) {
-      return c.json({ error: '難易度のクエリパラメータが不正です' }, 400);
-    }
+    const { difficulty } = c.req.valid('query');
 
     const db = drizzle(c.env.DB, { schema });
     const themes = await db
@@ -34,10 +100,13 @@ app.get('/themes', async (c) => {
       .orderBy(sql`RANDOM()`)
       .limit(1);
 
-    return c.json({ themes });
+    return c.json({ themes }, 200);
   } catch (e) {
     return c.json(
-      { error: 'お題の取得に失敗しました', message: (e as Error).message },
+      {
+        error: 'お題の取得に失敗しました',
+        message: (e as Error).message,
+      },
       500,
     );
   }

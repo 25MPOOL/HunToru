@@ -1,9 +1,9 @@
+import { D1Database } from '@cloudflare/workers-types';
 import { drizzle } from 'drizzle-orm/d1';
 import { getPlatformProxy } from 'wrangler';
 
 import type { NewTheme } from '../db/schema';
 import * as schema from '../db/schema';
-import { D1Database } from '@cloudflare/workers-types';
 
 const themesToSeed: NewTheme[] = [
   {

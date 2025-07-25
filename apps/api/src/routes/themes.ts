@@ -1,10 +1,11 @@
-import { drizzle } from 'drizzle-orm/d1';
+import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
 import { eq, sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/d1';
+import { z } from 'zod';
+
 import * as schema from '../db/schema';
 import type { Env } from '../types';
 import { DIFFICULTY } from '../types';
-import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
-import { z } from 'zod';
 
 const ThemeSchema = z.object({
   id: z.number().openapi({

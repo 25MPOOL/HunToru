@@ -1,11 +1,10 @@
-import { cors } from 'hono/cors';
 import { swaggerUI } from '@hono/swagger-ui';
-
-import type { Env } from './types';
-import { themesRoutes } from './routes/themes';
-import { judgeRoutes } from './routes/judge';
-
 import { OpenAPIHono } from '@hono/zod-openapi';
+import { cors } from 'hono/cors';
+
+import { judgeRoutes } from './routes/judge';
+import { themesRoutes } from './routes/themes';
+import type { Env } from './types';
 
 const app = new OpenAPIHono<{ Bindings: Env }>();
 

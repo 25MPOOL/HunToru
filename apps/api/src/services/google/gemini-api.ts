@@ -27,13 +27,13 @@ const PROMPT_TEMPLATE = `
 // Type Definitions
 // =================================================================
 
-interface CallGeminiAPIParams {
+export interface CallGeminiAPIParams {
   theme: string;
   labels: string[];
   apiKey: string;
 }
 
-interface GeminiResponse {
+export interface CallGeminiAPIResponse {
   score: number;
   reason: string;
 }
@@ -49,7 +49,7 @@ interface GeminiResponse {
  */
 export async function callGeminiAPI(
   params: CallGeminiAPIParams,
-): Promise<GeminiResponse> {
+): Promise<CallGeminiAPIResponse> {
   const { theme, labels, apiKey } = params;
 
   const endpoint = `${API_ENDPOINT_BASE}/${MODEL_NAME}:generateContent?key=${apiKey}`;
@@ -81,5 +81,5 @@ export async function callGeminiAPI(
   const data = await response.json();
   const responseText = data.candidates[0].content.parts[0].text;
 
-  return JSON.parse(responseText) as GeminiResponse;
+  return JSON.parse(responseText) as CallGeminiAPIResponse;
 }

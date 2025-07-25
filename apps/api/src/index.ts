@@ -20,6 +20,9 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>();
 
+/**
+ * CORS 設定
+ */
 app.use(
   '/*',
   cors({
@@ -38,7 +41,12 @@ app.use(
   }),
 );
 
-// 画像判定エンドポイント（実際のVision API使用）
+/**
+ * 画像を判定し、お題に対してどのくらい似ているかを判定する
+ *
+ * @param c base64 の画像データとお題を受け取る
+ * @returns 判定結果
+ */
 app.post('/judge', async (c) => {
   try {
     const body = await c.req.json();

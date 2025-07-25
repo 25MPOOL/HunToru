@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { Camera } from '../camera';
 import type { CameraRef } from '../camera/types';
-import { Timer } from './timer';
-import type { Theme, JudgeResult } from './types';
 import styles from './shooting-screen.module.css';
+import { Timer } from './timer';
+import type { JudgeResult, Theme } from './types';
 
 /**
  * 3枚目：撮影画面専用コンポーネント
@@ -27,11 +27,9 @@ interface ShootingScreenProps {
 export const ShootingScreen: React.FC<ShootingScreenProps> = ({
   theme,
   onComplete,
-  onCancel,
 }) => {
   const [phase, setPhase] = useState<'SHOOTING' | 'JUDGING'>('SHOOTING');
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
-  const [timerKey, setTimerKey] = useState(0);
   const cameraRef = useRef<CameraRef>(null);
 
   // 撮影完了時の処理
@@ -113,14 +111,9 @@ export const ShootingScreen: React.FC<ShootingScreenProps> = ({
               <div className={styles.character}></div>
             </div>
 
-            {/* タイマー - 余計なテキストを削除 */}
+            {/* タイマー */}
             <div className={styles.timerArea}>
-              <Timer
-                key={timerKey}
-                initialTime={60}
-                onTimeUp={handleTimeUp}
-                isActive={true}
-              />
+              <Timer initialTime={60} onTimeUp={handleTimeUp} isActive={true} />
             </div>
 
             {/* カメラプレビュー */}

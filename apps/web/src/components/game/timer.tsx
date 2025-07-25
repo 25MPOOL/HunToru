@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import type { TimerProps } from './types';
 import styles from './timer.module.css';
+import type { TimerProps } from './types';
 
 /**
  * ゲーム用カウントダウンタイマーコンポーネント

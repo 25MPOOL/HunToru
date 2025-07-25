@@ -4,7 +4,7 @@
 
 const API_ENDPOINT_BASE =
   'https://generativelanguage.googleapis.com/v1beta/models';
-const MODEL_NAME = 'gemini-2.0-flash';
+const MODEL_NAME = 'gemini-1.5-flash';
 
 /**
  * Gemini API に投げるプロンプト

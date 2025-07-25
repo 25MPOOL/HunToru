@@ -78,4 +78,4 @@ app.post('/judge', async (c) => {
   }
 });
 
-export default app;
+export const judgeRoutes = app;

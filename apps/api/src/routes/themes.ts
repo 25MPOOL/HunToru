@@ -43,4 +43,4 @@ app.get('/themes', async (c) => {
   }
 });
 
-export default app;
+export const themesRoutes = app;

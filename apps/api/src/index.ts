@@ -2,8 +2,8 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 
 import type { Env } from './types';
-import themesRoutes from './routes/themes';
-import judgeRoutes from './routes/judge';
+import { themesRoutes } from './routes/themes';
+import { judgeRoutes } from './routes/judge';
 
 const app = new Hono<{ Bindings: Env }>();
 

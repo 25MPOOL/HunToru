@@ -10,7 +10,7 @@ const VISION_API_URL = 'https://vision.googleapis.com/v1/images:annotate';
 // Type Definitions
 // =================================================================
 
-export interface VisionApiParams {
+interface VisionApiParams {
   image: string;
   serviceAccountKey: string;
 }
@@ -48,7 +48,7 @@ interface VisionApiResponseItem {
   error?: ApiError;
 }
 
-export interface VisionApiResponse {
+interface VisionApiResponse {
   responses: Array<VisionApiResponseItem>;
 }
 

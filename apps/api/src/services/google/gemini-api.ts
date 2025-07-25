@@ -38,7 +38,7 @@ export interface CallGeminiAPIParams {
   apiKey: string;
 }
 
-export interface CallGeminiAPIResponse {
+interface CallGeminiAPIResponse {
   score: number;
   reason: string;
 }

@@ -1,10 +1,9 @@
 const getApiConfig = () => {
-  const isProd = window.location.hostname === 'huntoru-web.pages.dev';
+  // const isProd = window.location.hostname === 'huntoru-web.pages.dev';
 
   return {
-    baseUrl: isProd
-      ? 'https://huntoru-api.nka21dev.workers.dev/'
-      : 'http://localhost:8787/',
+    baseUrl: 'https://huntoru-api.nka21dev.workers.dev/',
+    // baseUrl: 'http://localhost:8787/',
   };
 };
 

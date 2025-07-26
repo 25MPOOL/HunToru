@@ -61,9 +61,12 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
 
           {/* 撮影した写真のプレビュー */}
           <div className={styles['photo-preview-area']}>
-            📸 撮影した写真のプレビュー
-            <br />
-            (実装時には撮影画像が表示されます)
+            {/* localStorage から撮影した写真を取得 */}
+            <img
+              src={localStorage.getItem('photo') || ''}
+              alt="撮影した写真"
+              className={styles['preview-image']}
+            />
           </div>
 
           {/* アクションボタン */}

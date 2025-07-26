@@ -69,7 +69,6 @@
 }
 
 .camera-main {
-  flex: 1;
   position: relative;
   background: var(--dark-brown);
   margin: 10px 10px 0;
@@ -81,7 +80,7 @@
   color: var(--light-peach);
   font-size: 16px;
   font-weight: 500;
-  min-height: 575px;
+  min-height: 540px;
   border: 3px solid var(--warm-brown);
   box-shadow:
     0 8px 25px rgba(139, 69, 19, 0.15),
@@ -101,13 +100,22 @@
   z-index: 5;
 }
 
+.camera-preview {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  height: 100%;
+  z-index: 1;
+}
+
 .camera-grid {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0.3;
+  opacity: 0.7;
+  z-index: 20;
   background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
@@ -122,6 +130,7 @@
   right: 20px;
   bottom: 20px;
   pointer-events: none;
+  z-index: 20;
 }
 
 .corner {
@@ -129,6 +138,7 @@
   width: 20px;
   height: 20px;
   border: 2px solid rgba(255, 255, 255, 0.4);
+  z-index: 20;
 }
 
 .corner.top-left {
@@ -136,6 +146,7 @@
   left: 0;
   border-right: none;
   border-bottom: none;
+  z-index: 20;
 }
 
 .corner.top-right {
@@ -143,6 +154,7 @@
   right: 0;
   border-left: none;
   border-bottom: none;
+  z-index: 20;
 }
 
 .corner.bottom-left {
@@ -150,6 +162,7 @@
   left: 0;
   border-right: none;
   border-top: none;
+  z-index: 20;
 }
 
 .corner.bottom-right {
@@ -157,6 +170,7 @@
   right: 0;
   border-left: none;
   border-top: none;
+  z-index: 20;
 }
 
 .focus-ring {

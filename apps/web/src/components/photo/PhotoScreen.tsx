@@ -1,12 +1,14 @@
 import type React from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
+import { Camera } from '../camera';
 import styles from './PhotoScreen.module.css';
 
+import type { CameraRef } from '@/web/components/camera/types';
 import type { Theme } from '@/web/types';
 
 /**
@@ -23,6 +25,8 @@ export const PhotoScreen = () => {
   const [isFlashing, setIsFlashing] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
   const [themes, setThemes] = useState<Theme[]>([]);
+
+  const cameraRef = useRef<CameraRef>(null);
 
   const navigate = useNavigate();
 
@@ -60,29 +64,34 @@ export const PhotoScreen = () => {
     [],
   );
 
+  // カメラの撮影完了コールバック
+  const handleCameraCapture = useCallback(
+    (imageData: string) => {
+      localStorage.setItem('photo', imageData);
+      handleNextPreview();
+    },
+    [handleNextPreview],
+  );
+
   /**
    * 写真撮影処理
    * フラッシュエフェクトとボタンエフェクトを含む
    */
   const handleCapturePhoto = useCallback(() => {
-    // フラッシュエフェクトを開始
+    if (isCapturing || !cameraRef.current) return;
+
     setIsFlashing(true);
     setIsCapturing(true);
 
-    // エフェクトをリセット
     setTimeout(() => {
       setIsFlashing(false);
       setIsCapturing(false);
     }, 300);
 
-    // 実際の撮影処理（200ms後に実行）
     setTimeout(() => {
-      // TODO: 実際のカメラ撮影機能を実装
-      console.log('写真を撮影しました');
+      cameraRef.current?.capture();
     }, 200);
-
-    handleNextPreview();
-  }, [handleNextPreview]);
+  }, [isCapturing]);
 
   useEffect(() => {
     try {
@@ -130,6 +139,7 @@ export const PhotoScreen = () => {
               </div>
             </div>
           </div>
+
           <div className={styles['camera-main']} onClick={handleCameraFocus}>
             {/* カメラのオーバーレイ */}
             <div className={styles['camera-overlay']}>
@@ -148,6 +158,9 @@ export const PhotoScreen = () => {
                   className={clsx(styles['corner'], styles['bottom-right'])}
                 ></div>
               </div>
+              <div className={styles['camera-preview']}>
+                <Camera ref={cameraRef} onCapture={handleCameraCapture} />
+              </div>
             </div>
 
             {/* フォーカスリング */}
@@ -158,17 +171,6 @@ export const PhotoScreen = () => {
                 style={{ left: ring.x, top: ring.y }}
               />
             ))}
-
-            {/* Shooting Guide */}
-            <div className={styles['shooting-guide']}>
-              📸 画面をタップしてフォーカス
-            </div>
-
-            <div className={styles['camera-preview']}>
-              📹 カメラプレビュー画面
-              <br />
-              (実装時にカメラ機能が表示されます)
-            </div>
           </div>
 
           <div className={styles['camera-controls']}>

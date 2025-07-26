@@ -6,7 +6,13 @@
     "deploy": "wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "type-check": "tsc --noEmit",
-    "test": "vitest"
+    "test": "vitest",
+    "db:migrate": "pnpm drizzle-kit generate && wrangler d1 migrations apply huntoru --local",
+    "db:seed:local": "npx tsx src/scripts/seed.ts",
+    "//-- 本番用コマンド --//": "",
+    "db:migrate:prod": "wrangler d1 migrations apply huntoru --remote",
+    "db:sql:generate": "npx tsx src/scripts/generate-sql.ts > seed.sql",
+    "db:seed:prod": "wrangler d1 execute huntoru --remote --file=./seed.sql"
   },
   "dependencies": {
     "@hono/swagger-ui": "^0.5.2",

@@ -215,16 +215,16 @@
     padding: 16px;
     gap: 16px;
   }
-  
+
   .speechBubbleContent {
     font-size: 14px;
   }
-  
+
   .hunToruCharacter {
     width: 100px;
     height: 100px;
   }
-  
+
   .gameButton {
     font-size: 14px;
     padding: 10px 20px;

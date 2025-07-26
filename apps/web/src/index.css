@@ -1,3 +1,8 @@
+/* レトロゲーム風フォント */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* ピクセルフォント */
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
 html,
 body,
 #root {
@@ -28,11 +33,21 @@ body,
   --text-secondary: #8d6e63;
 }
 
-/* レトロゲーム風フォント */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 .retro-font {
   font-family: 'Press Start 2P', 'Courier New', monospace;
+}
+
+.dotgothic16-regular {
+  font-family: "DotGothic16", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.dotgothic16-bold {
+  font-family: "DotGothic16", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 /* ピクセルアート風の画像レンダリング */

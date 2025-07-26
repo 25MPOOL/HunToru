@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 import huntoru from '../../assets/huntoru.png';
 import { PixelBubble } from '../ui/PixelBubble';
@@ -18,7 +19,13 @@ export const ModeScreen = () => {
   );
 
   return (
-    <div className={clsx(styles.screen, styles['difficulty-screen'])}>
+    <motion.div
+      className={clsx(styles.screen, styles['difficulty-screen'])}
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
       <div className={styles.content}>
         <div className={styles['difficulty-header']}>
           <PixelBubble className={styles['pixel-bubble']} />
@@ -89,6 +96,6 @@ export const ModeScreen = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

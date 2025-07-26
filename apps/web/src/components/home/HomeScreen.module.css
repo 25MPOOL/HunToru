@@ -1,72 +1,79 @@
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes titleFadeIn {
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes subtitleFadeIn {
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes characterAppear {
   to {
-      opacity: 1;
-      transform: scale(1);
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
 @keyframes characterPulse {
-  0%, 100% {
-      transform: scale(1);
+  0%,
+  100% {
+    transform: scale(1);
   }
   50% {
-      transform: scale(1.02);
+    transform: scale(1.02);
   }
 }
 
 @keyframes characterGlow {
-  0%, 100% {
-      opacity: 0.2;
-      transform: scale(1);
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
   }
   50% {
-      opacity: 0.4;
-      transform: scale(1.1);
+    opacity: 0.4;
+    transform: scale(1.1);
   }
 }
 
 @keyframes buttonFadeIn {
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes floatUpDown {
-  0%, 100% {
-      transform: translateY(0px) rotate(0deg);
-      opacity: 0.1;
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.1;
   }
   25% {
-      transform: translateY(-20px) rotate(5deg);
-      opacity: 0.2;
+    transform: translateY(-20px) rotate(5deg);
+    opacity: 0.2;
   }
   50% {
-      transform: translateY(-10px) rotate(-3deg);
-      opacity: 0.15;
+    transform: translateY(-10px) rotate(-3deg);
+    opacity: 0.15;
   }
   75% {
-      transform: translateY(-25px) rotate(2deg);
-      opacity: 0.25;
+    transform: translateY(-25px) rotate(2deg);
+    opacity: 0.25;
   }
 }
 
@@ -85,7 +92,11 @@
 }
 
 .home-screen {
-  background: linear-gradient(180deg, var(--primary-bg) 0%, var(--light-peach) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--primary-bg) 0%,
+    var(--light-peach) 100%
+  );
 }
 
 .content {
@@ -142,7 +153,11 @@
   left: -15px;
   right: -15px;
   bottom: -15px;
-  background: radial-gradient(circle, rgba(212, 165, 116, 0.2) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(212, 165, 116, 0.2) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
   animation: characterGlow 4s ease-in-out infinite;
   z-index: -1;
@@ -182,7 +197,12 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
   transition: left 0.8s;
 }
 
@@ -209,30 +229,29 @@
 }
 
 .floating-bg:nth-child(1) {
-    top: 15%;
-    left: 10%;
-    animation-delay: 0s;
-    animation-duration: 8s;
+  top: 15%;
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 8s;
 }
 
 .floating-bg:nth-child(2) {
-    top: 25%;
-    right: 15%;
-    animation-delay: 2s;
-    animation-duration: 10s;
+  top: 25%;
+  right: 15%;
+  animation-delay: 2s;
+  animation-duration: 10s;
 }
 
 .floating-bg:nth-child(3) {
-    top: 65%;
-    left: 8%;
-    animation-delay: 4s;
-    animation-duration: 7s;
+  top: 65%;
+  left: 8%;
+  animation-delay: 4s;
+  animation-duration: 7s;
 }
 
 .floating-bg:nth-child(4) {
-    top: 75%;
-    right: 12%;
-    animation-delay: 6s;
-    animation-duration: 9s;
+  top: 75%;
+  right: 12%;
+  animation-delay: 6s;
+  animation-duration: 9s;
 }
-

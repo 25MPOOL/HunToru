@@ -32,20 +32,17 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
 
     const sendJudgeRequest = async () => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL_DEV}/judge`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              theme,
-              imageData: base64Data,
-              difficulty,
-            }),
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/judge`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        );
+          body: JSON.stringify({
+            theme,
+            imageData: base64Data,
+            difficulty,
+          }),
+        });
 
         const judgeResultData = await response.json();
 

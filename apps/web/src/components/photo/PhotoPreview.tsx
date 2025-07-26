@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 
 import styles from './PhotoPreview.module.css';
 
+import { API_CONFIG } from '@/web/lib/api';
+
 interface PhotoPreviewProps {
   onConfirm?: () => void;
   onRetake?: () => void;
@@ -32,7 +34,7 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
 
     const sendJudgeRequest = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}judge`, {
+        const response = await fetch(`${API_CONFIG.baseUrl}judge`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

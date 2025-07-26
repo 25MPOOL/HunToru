@@ -23,7 +23,7 @@ export const ModeScreen = () => {
   const fetchThemes = useCallback(async (mode: string) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/themes?difficulty=${mode}`,
+        `${import.meta.env.VITE_API_URL}themes?difficulty=${mode}`,
       );
       const themes: Theme[] = await response.json();
 

@@ -1,14 +1,16 @@
 // import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import { AnimatePresence } from 'framer-motion';
 
 import styles from './App.module.css';
+import { HomeScreen } from './components/home/HomeScreen';
 import { ModeScreen } from './components/mode/ModeScreen';
+import { PhotoPreview } from './components/photo/PhotoPreview';
+import { PhotoScreen } from './components/photo/PhotoScreen';
 // import { ShootingScreen } from './components/game/shooting-screen';
 // import type { JudgeResult, Theme } from './components/game/types';
-// import { HomeScreen } from './components/home/HomeScreen';
-// import { ResultScreen } from './components/result/ResultScreen';
-// import { PhotoScreen } from './components/photo/PhotoScreen';
-// import { HomeScreen } from './components/home/HomeScreen';
-// import { PhotoPreview } from './components/photo/PhotoPreview';
+import { ResultScreen } from './components/result/ResultScreen';
 
 function App() {
   // // テスト用のお題データ
@@ -36,11 +38,17 @@ function App() {
 
   return (
     <div className={styles['phone-container']}>
-      {/* <HomeScreen /> */}
-      <ModeScreen />
-      {/* <PhotoScreen /> */}
-      {/* <PhotoPreview /> */}
-      {/* <ResultScreen /> */}
+      <Router>
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/mode" element={<ModeScreen />} />
+            <Route path="/photo" element={<PhotoScreen />} />
+            <Route path="/photo/preview" element={<PhotoPreview />} />
+            <Route path="/result" element={<ResultScreen />} />
+          </Routes>
+        </AnimatePresence>
+      </Router>
       {/* {showShooting ? (
         <ShootingScreen theme={testTheme} onComplete={handleComplete} />
       ) : (

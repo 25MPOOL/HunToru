@@ -1,20 +1,45 @@
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 import styles from './PhotoPreview.module.css';
 
-type PhotoPreviewProps = {
-  onConfirm: () => void;
-  onRetake: () => void;
-  timeLeft: number;
-};
+interface PhotoPreviewProps {
+  onConfirm?: () => void;
+  onRetake?: () => void;
+  timeLeft?: number;
+}
 
-export const PhotoPreview: React.FC<PhotoPreviewProps> = ({
-  onConfirm,
-  onRetake,
-  timeLeft,
-}) => {
+export const PhotoPreview = (props: PhotoPreviewProps) => {
+  const { onConfirm, onRetake, timeLeft = 0 } = props;
+
+  const navigate = useNavigate();
+  const handleConfirm = useCallback(() => {
+    if (onConfirm) {
+      onConfirm();
+    }
+
+    navigate('/result');
+  }, [navigate, onConfirm]);
+
+  const handleRetake = useCallback(() => {
+    if (onRetake) {
+      onRetake();
+    }
+
+    navigate('/photo');
+  }, [navigate, onRetake]);
+
   return (
-    <div className={clsx(styles['screen'], styles['preview-screen'])}>
+    <motion.div
+      className={clsx(styles['screen'], styles['preview-screen'])}
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
       <div className={styles.content}>
         <div className={styles['preview-content']}>
           {/* 残り時間表示 */}
@@ -45,19 +70,19 @@ export const PhotoPreview: React.FC<PhotoPreviewProps> = ({
           <div className={styles['preview-actions']}>
             <button
               className={clsx(styles['preview-button'], styles['btn-confirm'])}
-              onClick={onConfirm}
+              onClick={handleConfirm}
             >
               この写真で決定！
             </button>
             <button
               className={clsx(styles['preview-button'], styles['btn-retake'])}
-              onClick={onRetake}
+              onClick={handleRetake}
             >
               撮り直す
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

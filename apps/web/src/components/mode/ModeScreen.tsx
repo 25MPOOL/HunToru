@@ -1,18 +1,33 @@
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 import huntoru from '../../assets/huntoru.png';
 import { PixelBubble } from '../ui/PixelBubble';
 import styles from './ModeScreen.module.css';
 
 export const ModeScreen = () => {
+  const navigate = useNavigate();
+
+  const handleModeSelect = useCallback(
+    (mode: string) => {
+      navigate('/photo', { state: { mode } });
+    },
+    [navigate],
+  );
+
   return (
-    <div className={clsx(styles.screen, styles['difficulty-screen'])}>
+    <motion.div
+      className={clsx(styles.screen, styles['difficulty-screen'])}
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
       <div className={styles.content}>
         <div className={styles['difficulty-header']}>
-          {/* <h1 className={styles['difficulty-title']}>難易度を選択</h1>
-          <p className={styles['difficulty-subtitle']}>
-            お題のムズかしさを選んでね
-          </p> */}
           <PixelBubble className={styles['pixel-bubble']} />
           <p className={styles['pixel-bubble-text']}>モードを選んでね！</p>
           <img src={huntoru} alt="huntoru" className={styles['huntoru-icon']} />
@@ -20,7 +35,10 @@ export const ModeScreen = () => {
 
         <div className={styles['difficulty-list']}>
           {/* かんたん */}
-          <div className={clsx(styles['difficulty-card'], styles.easy)}>
+          <div
+            className={clsx(styles['difficulty-card'], styles.easy)}
+            onClick={() => handleModeSelect('easy')}
+          >
             <div className={styles['difficulty-icon']}>
               <div className={styles['pixel-icon']} />
             </div>
@@ -38,7 +56,10 @@ export const ModeScreen = () => {
           </div>
 
           {/* ふつう */}
-          <div className={clsx(styles['difficulty-card'], styles.normal)}>
+          <div
+            className={clsx(styles['difficulty-card'], styles.normal)}
+            onClick={() => handleModeSelect('normal')}
+          >
             {/* おすすめバッジ */}
             <div className={styles['recommended-badge']}>おすすめ</div>
             <div className={styles['difficulty-icon']}>
@@ -56,7 +77,10 @@ export const ModeScreen = () => {
           </div>
 
           {/* むずかしい */}
-          <div className={clsx(styles['difficulty-card'], styles.hard)}>
+          <div
+            className={clsx(styles['difficulty-card'], styles.hard)}
+            onClick={() => handleModeSelect('hard')}
+          >
             <div className={styles['difficulty-icon']}>
               <div className={styles['pixel-icon']} />
             </div>
@@ -72,6 +96,6 @@ export const ModeScreen = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

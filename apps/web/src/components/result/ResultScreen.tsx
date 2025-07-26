@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 import huntoru from '../../assets/huntoru.png';
 import styles from './ResultScreen.module.css';
@@ -10,6 +12,15 @@ export const ResultScreen = () => {
   const scoreValueRef = useRef<HTMLSpanElement>(null);
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState(0);
+
+  const navigate = useNavigate();
+  const handleReplay = useCallback(() => {
+    navigate('/mode');
+  }, [navigate]);
+
+  const handleHome = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
 
   const animateScore = (
     element: HTMLElement,
@@ -82,7 +93,13 @@ export const ResultScreen = () => {
   }, []);
 
   return (
-    <div className={clsx(styles.screen, styles['result-screen'])}>
+    <motion.div
+      className={clsx(styles.screen, styles['result-screen'])}
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
       <div className={styles.content}>
         <div className={styles['result-content']}>
           {/* 上部の情報 */}
@@ -130,6 +147,7 @@ export const ResultScreen = () => {
                 styles['action-button-result'],
                 styles['btn-primary-result'],
               )}
+              onClick={handleReplay}
             >
               もう一度とる！
             </button>
@@ -139,12 +157,13 @@ export const ResultScreen = () => {
                 styles['action-button-result'],
                 styles['btn-secondary-result'],
               )}
+              onClick={handleHome}
             >
               ホームへ
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

@@ -1,7 +1,9 @@
 import type React from 'react';
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 import styles from './PhotoScreen.module.css';
 
@@ -18,6 +20,12 @@ export const PhotoScreen = () => {
   const [focusRings, setFocusRings] = useState<FocusRingPosition[]>([]);
   const [isFlashing, setIsFlashing] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleNextPreview = useCallback(() => {
+    navigate('/photo/preview');
+  }, [navigate]);
 
   /**
    * カメラのフォーカス処理
@@ -69,10 +77,18 @@ export const PhotoScreen = () => {
       // TODO: 実際のカメラ撮影機能を実装
       console.log('写真を撮影しました');
     }, 200);
-  }, []);
+
+    handleNextPreview();
+  }, [handleNextPreview]);
 
   return (
-    <div className={clsx(styles['screen'], styles['photo-screen'])}>
+    <motion.div
+      className={clsx(styles['screen'], styles['photo-screen'])}
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
       <div className={styles.content}>
         {/* パターン2: コンパクトヘッダー表示 */}
         <div className={styles['photo-content']}>
@@ -154,6 +170,6 @@ export const PhotoScreen = () => {
           isFlashing && styles['flash-active'],
         )}
       />
-    </div>
+    </motion.div>
   );
 };

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
 
@@ -10,6 +11,15 @@ export const ResultScreen = () => {
   const scoreValueRef = useRef<HTMLSpanElement>(null);
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState(0);
+
+  const navigate = useNavigate();
+  const handleReplay = useCallback(() => {
+    navigate('/mode');
+  }, [navigate]);
+
+  const handleHome = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
 
   const animateScore = (
     element: HTMLElement,
@@ -130,6 +140,7 @@ export const ResultScreen = () => {
                 styles['action-button-result'],
                 styles['btn-primary-result'],
               )}
+              onClick={handleReplay}
             >
               もう一度とる！
             </button>
@@ -139,6 +150,7 @@ export const ResultScreen = () => {
                 styles['action-button-result'],
                 styles['btn-secondary-result'],
               )}
+              onClick={handleHome}
             >
               ホームへ
             </button>

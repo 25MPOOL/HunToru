@@ -3,7 +3,8 @@
 import styles from './App.module.css';
 // import { ShootingScreen } from './components/game/shooting-screen';
 // import type { JudgeResult, Theme } from './components/game/types';
-import { HomeScreen } from './components/home/HomeScreen';
+// import { HomeScreen } from './components/home/HomeScreen';
+import { ResultScreen } from './components/result/ResultScreen';
 
 function App() {
   // テスト用のお題データ
@@ -31,7 +32,8 @@ function App() {
 
   return (
     <div className={styles['phone-container']}>
-      <HomeScreen />
+      {/* <HomeScreen /> */}
+      <ResultScreen />
       {/* {showShooting ? (
         <ShootingScreen theme={testTheme} onComplete={handleComplete} />
       ) : (

@@ -13,7 +13,11 @@
 }
 
 .difficulty-screen {
-  background: linear-gradient(180deg, var(--secondary-bg) 0%, var(--warm-beige) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--secondary-bg) 0%,
+    var(--warm-beige) 100%
+  );
 }
 
 .difficulty-header {
@@ -47,8 +51,8 @@
   transition: all 0.3s ease;
   border: 4px solid #2c2c2c;
   box-shadow:
-      0 6px 0 #1a1a1a,
-      0 8px 20px rgba(139, 69, 19, 0.1);
+    0 6px 0 #1a1a1a,
+    0 8px 20px rgba(139, 69, 19, 0.1);
   overflow: hidden;
   display: flex;
   position: relative;
@@ -57,15 +61,15 @@
 .difficulty-card:hover {
   transform: translateY(-2px);
   box-shadow:
-      0 8px 0 #1a1a1a,
-      0 12px 30px rgba(139, 69, 19, 0.2);
+    0 8px 0 #1a1a1a,
+    0 12px 30px rgba(139, 69, 19, 0.2);
 }
 
 .difficulty-card:active {
   transform: translateY(2px);
   box-shadow:
-      0 2px 0 #1a1a1a,
-      0 4px 15px rgba(139, 69, 19, 0.1);
+    0 2px 0 #1a1a1a,
+    0 4px 15px rgba(139, 69, 19, 0.1);
 }
 
 .difficulty-icon {
@@ -74,14 +78,13 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  background-image:
-      repeating-linear-gradient(
-          45deg,
-          transparent,
-          transparent 2px,
-          rgba(255,255,255,0.1) 2px,
-          rgba(255,255,255,0.1) 4px
-      );
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.1) 2px,
+    rgba(255, 255, 255, 0.1) 4px
+  );
 }
 
 .pixel-icon {

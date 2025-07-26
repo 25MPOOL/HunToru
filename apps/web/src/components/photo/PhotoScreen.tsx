@@ -1,11 +1,13 @@
 import type React from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
 import styles from './PhotoScreen.module.css';
+
+import type { Theme } from '@/web/types';
 
 /**
  * フォーカスリングの位置情報を表す型
@@ -20,6 +22,7 @@ export const PhotoScreen = () => {
   const [focusRings, setFocusRings] = useState<FocusRingPosition[]>([]);
   const [isFlashing, setIsFlashing] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
+  const [themes, setThemes] = useState<Theme[]>([]);
 
   const navigate = useNavigate();
 
@@ -81,6 +84,25 @@ export const PhotoScreen = () => {
     handleNextPreview();
   }, [handleNextPreview]);
 
+  useEffect(() => {
+    try {
+      const rawData =
+        localStorage.getItem('currentThemes') || '{ "themes": [] }';
+      const parsedObject = JSON.parse(rawData);
+      setThemes(parsedObject.themes || []);
+    } catch (e) {
+      console.error('Failed to load themes from localStorage', e);
+      setThemes([]);
+    }
+  }, []);
+
+  const currentTheme = useMemo(() => {
+    if (themes.length > 0) {
+      return themes[0].theme;
+    }
+    return 'お題がありません';
+  }, [themes]);
+
   return (
     <motion.div
       className={clsx(styles['screen'], styles['photo-screen'])}
@@ -101,7 +123,7 @@ export const PhotoScreen = () => {
             </div>
             <div className={styles['compact-challenge']}>
               <div className={styles['compact-challenge-text']}>
-                「コップを撮ろう！」
+                「{currentTheme}を撮ろう！」
               </div>
               <div className={styles['compact-challenge-hint']}>
                 明るい場所で、大きく写そう

@@ -60,13 +60,14 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
         // localStorage に保存してある お題情報と写真データを削除
         localStorage.removeItem('photo');
         localStorage.removeItem('currentThemes');
+
+        navigate('/result');
       } catch (e) {
         console.error(e);
       }
     };
 
     sendJudgeRequest();
-    navigate('/result');
   }, [navigate, onConfirm]);
 
   const handleRetake = useCallback(() => {

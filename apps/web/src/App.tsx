@@ -5,9 +5,12 @@ import styles from './App.module.css';
 // import type { JudgeResult, Theme } from './components/game/types';
 // import { HomeScreen } from './components/home/HomeScreen';
 import { ResultScreen } from './components/result/ResultScreen';
+// import { PhotoScreen } from './components/photo/PhotoScreen';
+// import { HomeScreen } from './components/home/HomeScreen';
+// import { PhotoPreview } from './components/photo/PhotoPreview';
 
 function App() {
-  // テスト用のお題データ
+  // // テスト用のお題データ
   // const testTheme: Theme = {
   //   id: 1,
   //   difficulty: 'NORMAL',
@@ -50,6 +53,8 @@ function App() {
           </button>
         </div>
       )} */}
+      {/* <PhotoScreen /> */}
+      {/* <PhotoPreview /> */}
     </div>
   );
 }

@@ -8,6 +8,12 @@ import huntoru from '../../assets/huntoru.png';
 import { PixelBubble } from '../ui/PixelBubble';
 import styles from './ModeScreen.module.css';
 
+interface Theme {
+  id: number;
+  difficulty: 'EASY' | 'NORMAL' | 'HARD';
+  theme: string;
+}
+
 export const ModeScreen = () => {
   const navigate = useNavigate();
 
@@ -17,6 +23,20 @@ export const ModeScreen = () => {
     },
     [navigate],
   );
+
+  const fetchThemes = useCallback(async (mode: string) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL_DEV}/themes?difficulty=${mode}`,
+      );
+      const themes: Theme[] = await response.json();
+
+      // localStorage に themes を保存する
+      localStorage.setItem('currentThemes', JSON.stringify(themes));
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   return (
     <motion.div
@@ -37,7 +57,10 @@ export const ModeScreen = () => {
           {/* かんたん */}
           <div
             className={clsx(styles['difficulty-card'], styles.easy)}
-            onClick={() => handleModeSelect('easy')}
+            onClick={async () => {
+              await fetchThemes('EASY');
+              handleModeSelect('EASY');
+            }}
           >
             <div className={styles['difficulty-icon']}>
               <div className={styles['pixel-icon']} />
@@ -58,7 +81,10 @@ export const ModeScreen = () => {
           {/* ふつう */}
           <div
             className={clsx(styles['difficulty-card'], styles.normal)}
-            onClick={() => handleModeSelect('normal')}
+            onClick={async () => {
+              await fetchThemes('NORMAL');
+              handleModeSelect('NORMAL');
+            }}
           >
             {/* おすすめバッジ */}
             <div className={styles['recommended-badge']}>おすすめ</div>
@@ -79,7 +105,10 @@ export const ModeScreen = () => {
           {/* むずかしい */}
           <div
             className={clsx(styles['difficulty-card'], styles.hard)}
-            onClick={() => handleModeSelect('hard')}
+            onClick={async () => {
+              await fetchThemes('HARD');
+              handleModeSelect('HARD');
+            }}
           >
             <div className={styles['difficulty-icon']}>
               <div className={styles['pixel-icon']} />

@@ -1,13 +1,31 @@
-/* グローバルリセット */
 html,
 body,
 #root {
   margin: 0;
   padding: 0;
-  background-color: #f5e6d3;
-  height: 100%;
-  overflow: hidden;
+  box-sizing: border-box;
+  background-color: var(--primary-bg);
   font-family: 'Courier New', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+:root {
+  --primary-bg: #faf5f0;
+  --secondary-bg: #f4e6d8;
+  --accent-bg: #e8d5c1;
+  --warm-brown: #d4a574;
+  --medium-brown: #b8956d;
+  --dark-brown: #8b4513;
+  --light-peach: #ffeee6;
+  --soft-pink: #f7e1d3;
+  --warm-beige: #e6d2c1;
+  --text-primary: #5d4037;
+  --text-secondary: #8d6e63;
 }
 
 /* レトロゲーム風フォント */

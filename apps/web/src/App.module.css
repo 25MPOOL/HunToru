@@ -7,6 +7,19 @@
   padding: 0;
 }
 
+.phone-container {
+  width: 375px;
+  height: 812px;
+  margin: 20px auto;
+  background: #2c2c2c;
+  border-radius: 40px;
+  padding: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
 /* テスト用の結果画面 */
 .testResult {
   padding: 20px;

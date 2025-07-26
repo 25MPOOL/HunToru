@@ -4,6 +4,7 @@ import styles from './App.module.css';
 // import { ShootingScreen } from './components/game/shooting-screen';
 // import type { JudgeResult, Theme } from './components/game/types';
 import { PhotoScreen } from './components/photo/PhotoScreen';
+// import { HomeScreen } from './components/home/HomeScreen';
 
 function App() {
   // // テスト用のお題データ
@@ -30,7 +31,8 @@ function App() {
   // };
 
   return (
-    <div className={styles.app}>
+    <div className={styles['phone-container']}>
+      {/* <HomeScreen /> */}
       {/* {showShooting ? (
         <ShootingScreen theme={testTheme} onComplete={handleComplete} />
       ) : (

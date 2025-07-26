@@ -1,0 +1,257 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes titleFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtitleFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes characterAppear {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes characterPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes characterGlow {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes buttonFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatUpDown {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-20px) rotate(5deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-10px) rotate(-3deg);
+    opacity: 0.15;
+  }
+  75% {
+    transform: translateY(-25px) rotate(2deg);
+    opacity: 0.25;
+  }
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 36px;
+  overflow: hidden;
+  position: relative;
+  display: none;
+}
+
+.screen.active {
+  display: block;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.home-screen {
+  background: linear-gradient(
+    180deg,
+    var(--primary-bg) 0%,
+    var(--light-peach) 100%
+  );
+}
+
+.content {
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 100%; */
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.app-title {
+  font-size: 60px;
+  font-weight: 700;
+  color: var(--dark-brown);
+  margin-bottom: 0px;
+  letter-spacing: -1px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: titleFadeIn 1.2s ease-out 0.3s forwards;
+}
+
+.app-subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: subtitleFadeIn 1s ease-out 0.8s forwards;
+}
+
+.character-area {
+  width: 85%;
+  height: 85%;
+  margin-bottom: 60px;
+  opacity: 0;
+  position: relative;
+  transform: scale(0.8);
+  animation: characterAppear 1.2s ease-out 1.2s forwards;
+}
+
+.character-area::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  background: radial-gradient(
+    circle,
+    rgba(212, 165, 116, 0.2) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  animation: characterGlow 4s ease-in-out infinite;
+  z-index: -1;
+}
+
+.character-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  animation: characterPulse 3s ease-in-out infinite;
+}
+
+.start-btn {
+  background: var(--warm-brown);
+  color: white;
+  border: none;
+  padding: 18px 50px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(212, 165, 116, 0.3);
+  min-width: 240px;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: buttonFadeIn 1s ease-out 1.8s forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+.start-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.8s;
+}
+
+.start-btn:hover {
+  background: var(--medium-brown);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(212, 165, 116, 0.4);
+}
+
+.start-btn:hover::before {
+  left: 100%;
+}
+
+.start-btn:active {
+  transform: translateY(-1px) scale(1.01);
+}
+
+.floating-bg {
+  position: absolute;
+  opacity: 0.1;
+  animation: floatUpDown 6s ease-in-out infinite;
+  pointer-events: none;
+  font-size: 20px;
+}
+
+.floating-bg:nth-child(1) {
+  top: 15%;
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 8s;
+}
+
+.floating-bg:nth-child(2) {
+  top: 25%;
+  right: 15%;
+  animation-delay: 2s;
+  animation-duration: 10s;
+}
+
+.floating-bg:nth-child(3) {
+  top: 65%;
+  left: 8%;
+  animation-delay: 4s;
+  animation-duration: 7s;
+}
+
+.floating-bg:nth-child(4) {
+  top: 75%;
+  right: 12%;
+  animation-delay: 6s;
+  animation-duration: 9s;
+}

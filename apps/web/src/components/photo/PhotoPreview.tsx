@@ -21,7 +21,53 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
       onConfirm();
     }
 
-    navigate('/result');
+    // localStorage から theme と difficulty と base64 のデータを取得し、リクエストボディに含める
+    const themesData = JSON.parse(
+      localStorage.getItem('currentThemes') || '{"themes": []}',
+    );
+    const currentTheme = themesData.themes?.[0] || {};
+    const { theme = '', difficulty = '' } = currentTheme;
+
+    const base64Data = localStorage.getItem('photo') || '';
+
+    const sendJudgeRequest = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/judge`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            theme,
+            imageData: base64Data,
+            difficulty,
+          }),
+        });
+
+        const judgeResultData = await response.json();
+
+        if (judgeResultData) {
+          localStorage.setItem(
+            'judgeResult',
+            JSON.stringify({
+              isMatch: judgeResultData.isMatch,
+              score: judgeResultData.score,
+              reason: judgeResultData.reason,
+            }),
+          );
+        }
+
+        // localStorage に保存してある お題情報と写真データを削除
+        localStorage.removeItem('photo');
+        localStorage.removeItem('currentThemes');
+
+        navigate('/result');
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    sendJudgeRequest();
   }, [navigate, onConfirm]);
 
   const handleRetake = useCallback(() => {
@@ -61,9 +107,12 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
 
           {/* 撮影した写真のプレビュー */}
           <div className={styles['photo-preview-area']}>
-            📸 撮影した写真のプレビュー
-            <br />
-            (実装時には撮影画像が表示されます)
+            {/* localStorage から撮影した写真を取得 */}
+            <img
+              src={localStorage.getItem('photo') || ''}
+              alt="撮影した写真"
+              className={styles['preview-image']}
+            />
           </div>
 
           {/* アクションボタン */}

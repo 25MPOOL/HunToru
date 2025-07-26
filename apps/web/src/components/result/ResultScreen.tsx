@@ -12,13 +12,27 @@ export const ResultScreen = () => {
   const scoreValueRef = useRef<HTMLSpanElement>(null);
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [isMatch, setIsMatch] = useState(false);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const navigate = useNavigate();
   const handleReplay = useCallback(() => {
+    localStorage.removeItem('judgeResult');
+
+    // 残っている可能性があるので削除
+    localStorage.removeItem('photo');
+    localStorage.removeItem('currentThemes');
+
     navigate('/mode');
   }, [navigate]);
 
   const handleHome = useCallback(() => {
+    localStorage.removeItem('judgeResult');
+
+    // 残っている可能性があるので削除
+    localStorage.removeItem('photo');
+    localStorage.removeItem('currentThemes');
+
     navigate('/');
   }, [navigate]);
 
@@ -48,49 +62,41 @@ export const ResultScreen = () => {
 
     requestAnimationFrame(updateScore);
   };
+
   useEffect(() => {
+    const judgeResult = JSON.parse(localStorage.getItem('judgeResult') || '{}');
+    if (judgeResult.score) {
+      setScore(judgeResult.score);
+    }
+    if (judgeResult.isMatch) {
+      setIsMatch(judgeResult.isMatch);
+    }
+    setIsDataLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isDataLoaded || score === 0) return;
+
     const progressBar = progressBarRef.current;
     const scoreValue = scoreValueRef.current;
-
     if (!progressBar || !scoreValue) return;
 
     const animateResult = () => {
+      // 初期状態にリセット
       progressBar.style.width = '0%';
       setProgress(0);
-      setScore(0);
 
       return setTimeout(() => {
-        progressBar.style.width = '85%';
-        setProgress(85);
-        animateScore(scoreValue, 0, 0.85, 1500);
+        const targetProgress = score * 100;
+        progressBar.style.width = `${targetProgress}%`;
+        setProgress(targetProgress);
+        animateScore(scoreValue, 0, score, 1500);
       }, 500);
     };
 
     const timeoutId = animateResult();
     return () => clearTimeout(timeoutId);
-  }, []);
-
-  useEffect(() => {
-    const progressBar = progressBarRef.current;
-    const scoreValue = scoreValueRef.current;
-
-    if (!progressBar || !scoreValue) return;
-
-    const animateResult = () => {
-      progressBar.style.width = '0%';
-      setProgress(0);
-      setScore(0);
-
-      return setTimeout(() => {
-        progressBar.style.width = '85%';
-        setProgress(85);
-        animateScore(scoreValue, 0, 0.85, 1500);
-      }, 500);
-    };
-
-    const timeoutId = animateResult();
-    return () => clearTimeout(timeoutId);
-  }, []);
+  }, [isDataLoaded, score]);
 
   return (
     <motion.div
@@ -104,8 +110,12 @@ export const ResultScreen = () => {
         <div className={styles['result-content']}>
           {/* 上部の情報 */}
           <div className={styles['result-top-info']}>
-            <div className={styles['result-emoji']}>🎉</div>
-            <h1 className={styles['result-title']}>成功！</h1>
+            <div className={styles['result-emoji']}>
+              {isMatch ? '🎉' : '😭'}
+            </div>
+            <h1 className={styles['result-title']}>
+              {isMatch ? '成功！' : '失敗...'}
+            </h1>
 
             {/* プログレスバースコア表示 */}
             <div className={styles['score-progress-container']}>

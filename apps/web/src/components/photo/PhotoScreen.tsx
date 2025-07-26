@@ -1,11 +1,15 @@
 import type React from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
+import { Camera } from '../camera';
 import styles from './PhotoScreen.module.css';
+
+import type { CameraRef } from '@/web/components/camera/types';
+import type { Theme } from '@/web/types';
 
 /**
  * フォーカスリングの位置情報を表す型
@@ -20,6 +24,9 @@ export const PhotoScreen = () => {
   const [focusRings, setFocusRings] = useState<FocusRingPosition[]>([]);
   const [isFlashing, setIsFlashing] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
+  const [themes, setThemes] = useState<Theme[]>([]);
+
+  const cameraRef = useRef<CameraRef>(null);
 
   const navigate = useNavigate();
 
@@ -57,29 +64,53 @@ export const PhotoScreen = () => {
     [],
   );
 
+  // カメラの撮影完了コールバック
+  const handleCameraCapture = useCallback(
+    (imageData: string) => {
+      localStorage.setItem('photo', imageData);
+      handleNextPreview();
+    },
+    [handleNextPreview],
+  );
+
   /**
    * 写真撮影処理
    * フラッシュエフェクトとボタンエフェクトを含む
    */
   const handleCapturePhoto = useCallback(() => {
-    // フラッシュエフェクトを開始
+    if (isCapturing || !cameraRef.current) return;
+
     setIsFlashing(true);
     setIsCapturing(true);
 
-    // エフェクトをリセット
     setTimeout(() => {
       setIsFlashing(false);
       setIsCapturing(false);
     }, 300);
 
-    // 実際の撮影処理（200ms後に実行）
     setTimeout(() => {
-      // TODO: 実際のカメラ撮影機能を実装
-      console.log('写真を撮影しました');
+      cameraRef.current?.capture();
     }, 200);
+  }, [isCapturing]);
 
-    handleNextPreview();
-  }, [handleNextPreview]);
+  useEffect(() => {
+    try {
+      const rawData =
+        localStorage.getItem('currentThemes') || '{ "themes": [] }';
+      const parsedObject = JSON.parse(rawData);
+      setThemes(parsedObject.themes || []);
+    } catch (e) {
+      console.error('Failed to load themes from localStorage', e);
+      setThemes([]);
+    }
+  }, []);
+
+  const currentTheme = useMemo(() => {
+    if (themes.length > 0) {
+      return themes[0].theme;
+    }
+    return 'お題がありません';
+  }, [themes]);
 
   return (
     <motion.div
@@ -101,13 +132,14 @@ export const PhotoScreen = () => {
             </div>
             <div className={styles['compact-challenge']}>
               <div className={styles['compact-challenge-text']}>
-                「コップを撮ろう！」
+                「{currentTheme}を撮ろう！」
               </div>
               <div className={styles['compact-challenge-hint']}>
                 明るい場所で、大きく写そう
               </div>
             </div>
           </div>
+
           <div className={styles['camera-main']} onClick={handleCameraFocus}>
             {/* カメラのオーバーレイ */}
             <div className={styles['camera-overlay']}>
@@ -126,6 +158,9 @@ export const PhotoScreen = () => {
                   className={clsx(styles['corner'], styles['bottom-right'])}
                 ></div>
               </div>
+              <div className={styles['camera-preview']}>
+                <Camera ref={cameraRef} onCapture={handleCameraCapture} />
+              </div>
             </div>
 
             {/* フォーカスリング */}
@@ -136,17 +171,6 @@ export const PhotoScreen = () => {
                 style={{ left: ring.x, top: ring.y }}
               />
             ))}
-
-            {/* Shooting Guide */}
-            <div className={styles['shooting-guide']}>
-              📸 画面をタップしてフォーカス
-            </div>
-
-            <div className={styles['camera-preview']}>
-              📹 カメラプレビュー画面
-              <br />
-              (実装時にカメラ機能が表示されます)
-            </div>
           </div>
 
           <div className={styles['camera-controls']}>

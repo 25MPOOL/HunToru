@@ -5,6 +5,7 @@ import styles from './App.module.css';
 // import type { JudgeResult, Theme } from './components/game/types';
 import { PhotoScreen } from './components/photo/PhotoScreen';
 // import { HomeScreen } from './components/home/HomeScreen';
+// import { PhotoPreview } from './components/photo/PhotoPreview';
 
 function App() {
   // // テスト用のお題データ
@@ -50,6 +51,7 @@ function App() {
         </div>
       )} */}
       <PhotoScreen />
+      {/* <PhotoPreview /> */}
     </div>
   );
 }

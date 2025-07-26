@@ -210,11 +210,12 @@
 }
 
 .camera-controls {
-  padding: 20px;
+  padding: 30px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: var(--primary-bg);
+  position: relative;
 }
 
 .photo-button-large {
@@ -231,6 +232,23 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease-out;
+}
+
+.photo-button-large:hover {
+  transform: scale(1.08);
+  box-shadow: 
+      0 12px 35px rgba(139, 69, 19, 0.3),
+      inset 0 2px 0 rgba(255,255,255,0.9);
+}
+
+.photo-button-large:active {
+  transform: scale(0.95);
+}
+
+.photo-button-large:active::before {
+  width: 60px;
+  height: 60px;
+  opacity: 0.3;
 }
 
 .photo-button-capturing {

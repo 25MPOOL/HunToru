@@ -1,3 +1,6 @@
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import clsx from 'clsx';
 
 import styles from './PhotoPreview.module.css';
@@ -10,6 +13,23 @@ interface PhotoPreviewProps {
 
 export const PhotoPreview = (props: PhotoPreviewProps) => {
   const { onConfirm, onRetake, timeLeft = 0 } = props;
+
+  const navigate = useNavigate();
+  const handleConfirm = useCallback(() => {
+    if (onConfirm) {
+      onConfirm();
+    }
+
+    navigate('/result');
+  }, [navigate, onConfirm]);
+
+  const handleRetake = useCallback(() => {
+    if (onRetake) {
+      onRetake();
+    }
+
+    navigate('/photo');
+  }, [navigate, onRetake]);
 
   return (
     <div className={clsx(styles['screen'], styles['preview-screen'])}>
@@ -43,13 +63,13 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
           <div className={styles['preview-actions']}>
             <button
               className={clsx(styles['preview-button'], styles['btn-confirm'])}
-              onClick={onConfirm}
+              onClick={handleConfirm}
             >
               この写真で決定！
             </button>
             <button
               className={clsx(styles['preview-button'], styles['btn-retake'])}
-              onClick={onRetake}
+              onClick={handleRetake}
             >
               撮り直す
             </button>

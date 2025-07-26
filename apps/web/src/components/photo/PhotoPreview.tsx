@@ -21,6 +21,54 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
       onConfirm();
     }
 
+    // localStorage から theme と difficulty と base64 のデータを取得し、リクエストボディに含める
+    const themesData = JSON.parse(
+      localStorage.getItem('currentThemes') || '{"themes": []}',
+    );
+    const currentTheme = themesData.themes?.[0] || {};
+    const { theme = '', difficulty = '' } = currentTheme;
+
+    const base64Data = localStorage.getItem('photo') || '';
+
+    const sendJudgeRequest = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL_DEV}/judge`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              theme,
+              imageData: base64Data,
+              difficulty,
+            }),
+          },
+        );
+
+        const judgeResultData = await response.json();
+
+        if (judgeResultData) {
+          localStorage.setItem(
+            'judgeResult',
+            JSON.stringify({
+              isMatch: judgeResultData.isMatch,
+              score: judgeResultData.score,
+              reason: judgeResultData.reason,
+            }),
+          );
+        }
+
+        // localStorage に保存してある お題情報と写真データを削除
+        localStorage.removeItem('photo');
+        localStorage.removeItem('currentThemes');
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    sendJudgeRequest();
     navigate('/result');
   }, [navigate, onConfirm]);
 

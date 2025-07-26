@@ -37,29 +37,48 @@ export const ResultScreen = () => {
 
     requestAnimationFrame(updateScore);
   };
-
   useEffect(() => {
+    const progressBar = progressBarRef.current;
+    const scoreValue = scoreValueRef.current;
+
+    if (!progressBar || !scoreValue) return;
+
     const animateResult = () => {
-      const progressBar = progressBarRef.current;
-      const scoreValue = scoreValueRef.current;
-
-      if (!progressBar || !scoreValue) return;
-
       progressBar.style.width = '0%';
       setProgress(0);
       setScore(0);
 
-      const timeoutId = setTimeout(() => {
+      return setTimeout(() => {
         progressBar.style.width = '85%';
         setProgress(85);
-
         animateScore(scoreValue, 0, 0.85, 1500);
       }, 500);
-
-      return () => clearTimeout(timeoutId);
     };
 
-    animateResult();
+    const timeoutId = animateResult();
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  useEffect(() => {
+    const progressBar = progressBarRef.current;
+    const scoreValue = scoreValueRef.current;
+
+    if (!progressBar || !scoreValue) return;
+
+    const animateResult = () => {
+      progressBar.style.width = '0%';
+      setProgress(0);
+      setScore(0);
+
+      return setTimeout(() => {
+        progressBar.style.width = '85%';
+        setProgress(85);
+        animateScore(scoreValue, 0, 0.85, 1500);
+      }, 500);
+    };
+
+    const timeoutId = animateResult();
+    return () => clearTimeout(timeoutId);
   }, []);
 
   return (

@@ -44,7 +44,7 @@ function App() {
             <Route path="/" element={<HomeScreen />} />
             <Route path="/mode" element={<ModeScreen />} />
             <Route path="/photo" element={<PhotoScreen />} />
-            <Route path="/preview" element={<PhotoPreview />} />
+            <Route path="/photo/preview" element={<PhotoPreview />} />
             <Route path="/result" element={<ResultScreen />} />
           </Routes>
         </AnimatePresence>

@@ -1,5 +1,6 @@
 import type React from 'react';
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
 
@@ -18,6 +19,12 @@ export const PhotoScreen = () => {
   const [focusRings, setFocusRings] = useState<FocusRingPosition[]>([]);
   const [isFlashing, setIsFlashing] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleNextPreview = useCallback(() => {
+    navigate('/photo/preview');
+  }, [navigate]);
 
   /**
    * カメラのフォーカス処理
@@ -69,7 +76,9 @@ export const PhotoScreen = () => {
       // TODO: 実際のカメラ撮影機能を実装
       console.log('写真を撮影しました');
     }, 200);
-  }, []);
+
+    handleNextPreview();
+  }, [handleNextPreview]);
 
   return (
     <div className={clsx(styles['screen'], styles['photo-screen'])}>

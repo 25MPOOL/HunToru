@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 
+import huntoru from '../../assets/huntoru.png';
+import { PixelBubble } from '../ui/PixelBubble';
 import styles from './ModeScreen.module.css';
 
 export const ModeScreen = () => {
@@ -7,10 +9,13 @@ export const ModeScreen = () => {
     <div className={clsx(styles.screen, styles['difficulty-screen'])}>
       <div className={styles.content}>
         <div className={styles['difficulty-header']}>
-          <h1 className={styles['difficulty-title']}>難易度を選択</h1>
+          {/* <h1 className={styles['difficulty-title']}>難易度を選択</h1>
           <p className={styles['difficulty-subtitle']}>
             お題のムズかしさを選んでね
-          </p>
+          </p> */}
+          <PixelBubble className={styles['pixel-bubble']} />
+          <p className={styles['pixel-bubble-text']}>難易度を選んでね!</p>
+          <img src={huntoru} alt="huntoru" className={styles['huntoru-icon']} />
         </div>
 
         <div className={styles['difficulty-list']}>

@@ -25,6 +25,34 @@
   padding: 40px 20px 30px;
 }
 
+.pixel-bubble {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  top: -30px;
+  left: 30px;
+  color: var(--primary-bg);
+}
+
+.pixel-bubble-text {
+  position: absolute;
+  top: 37px;
+  left: 55px;
+  font-size: 20px;
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  font-family: 'PixelMplus12';
+}
+
+.huntoru-icon {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  top: 37px;
+  right: -100px;
+}
+
 .difficulty-title {
   font-size: 28px;
   font-weight: 700;
@@ -171,15 +199,15 @@
   letter-spacing: 1px;
 
   .easy & {
-    color: green;
+    color: #26a170;
   }
 
   .normal & {
-    color: blue;
+    color: #2970b9;
   }
 
   .hard & {
-    color: red;
+    color: #e66154;
   }
 }
 

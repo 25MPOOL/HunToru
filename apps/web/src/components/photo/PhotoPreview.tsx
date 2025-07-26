@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 import styles from './PhotoPreview.module.css';
 
@@ -32,7 +33,13 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
   }, [navigate, onRetake]);
 
   return (
-    <div className={clsx(styles['screen'], styles['preview-screen'])}>
+    <motion.div
+      className={clsx(styles['screen'], styles['preview-screen'])}
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
       <div className={styles.content}>
         <div className={styles['preview-content']}>
           {/* 残り時間表示 */}
@@ -76,6 +83,6 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

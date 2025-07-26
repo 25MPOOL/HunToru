@@ -1,10 +1,11 @@
 // import { useState } from 'react';
 
 import styles from './App.module.css';
+import { ModeScreen } from './components/mode/ModeScreen';
 // import { ShootingScreen } from './components/game/shooting-screen';
 // import type { JudgeResult, Theme } from './components/game/types';
 // import { HomeScreen } from './components/home/HomeScreen';
-import { ResultScreen } from './components/result/ResultScreen';
+// import { ResultScreen } from './components/result/ResultScreen';
 // import { PhotoScreen } from './components/photo/PhotoScreen';
 // import { HomeScreen } from './components/home/HomeScreen';
 // import { PhotoPreview } from './components/photo/PhotoPreview';
@@ -36,7 +37,10 @@ function App() {
   return (
     <div className={styles['phone-container']}>
       {/* <HomeScreen /> */}
-      <ResultScreen />
+      <ModeScreen />
+      {/* <PhotoScreen /> */}
+      {/* <PhotoPreview /> */}
+      {/* <ResultScreen /> */}
       {/* {showShooting ? (
         <ShootingScreen theme={testTheme} onComplete={handleComplete} />
       ) : (
@@ -53,8 +57,6 @@ function App() {
           </button>
         </div>
       )} */}
-      {/* <PhotoScreen /> */}
-      {/* <PhotoPreview /> */}
     </div>
   );
 }

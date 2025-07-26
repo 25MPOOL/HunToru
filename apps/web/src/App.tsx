@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import styles from './App.module.css';
+import { ResultScreen } from './components/game/result-screen';
 import { ShootingScreen } from './components/game/shooting-screen';
 import type { JudgeResult, Theme } from './components/game/types';
 
@@ -13,38 +14,40 @@ function App() {
     aiCondition: { label: 'Test' },
   };
 
-  const [showShooting, setShowShooting] = useState(true);
+  const [currentScreen, setCurrentScreen] = useState<'shooting' | 'result'>(
+    'shooting',
+  );
   const [result, setResult] = useState<JudgeResult | null>(null);
 
   const handleComplete = (judgeResult: JudgeResult) => {
     setResult(judgeResult);
-    setShowShooting(false);
+    setCurrentScreen('result');
     console.log('撮影完了:', judgeResult);
-    // 実際は4枚目（結果画面）に遷移
   };
 
-  const handleRetry = () => {
+  const handlePlayAgain = () => {
     setResult(null);
-    setShowShooting(true);
+    setCurrentScreen('shooting');
+  };
+
+  const handleGoHome = () => {
+    // 実際はホーム画面に遷移
+    console.log('ホームに戻る');
+    handlePlayAgain(); // 今は撮影画面に戻る
   };
 
   return (
     <div className={styles.app}>
-      {showShooting ? (
+      {currentScreen === 'shooting' ? (
         <ShootingScreen theme={testTheme} onComplete={handleComplete} />
       ) : (
-        <div className={styles.testResult}>
-          <h1 className={styles.testResultTitle}>テスト完了</h1>
-          {result && (
-            <div className={styles.testResultContent}>
-              <p>スコア: {(result.label_score * 100).toFixed(1)}%</p>
-              <p>結果: {result.success ? '成功' : '失敗'}</p>
-            </div>
-          )}
-          <button className={styles.testResultButton} onClick={handleRetry}>
-            もう一度テスト
-          </button>
-        </div>
+        result && (
+          <ResultScreen
+            result={result}
+            onPlayAgain={handlePlayAgain}
+            onGoHome={handleGoHome}
+          />
+        )
       )}
     </div>
   );

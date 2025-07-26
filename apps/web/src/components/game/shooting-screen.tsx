@@ -62,6 +62,7 @@ export const ShootingScreen: React.FC<ShootingScreenProps> = ({
         body: JSON.stringify({
           imageData: imageData,
           theme: theme.theme,
+          difficulty: theme.difficulty, // 難易度を追加
         }),
       });
 
@@ -78,9 +79,11 @@ export const ShootingScreen: React.FC<ShootingScreenProps> = ({
       const errorResult: JudgeResult = {
         success: false,
         theme: theme.theme,
-        label_score: 0,
-        detected_labels: [],
-        message: '',
+        score: 0, // label_score → score
+        reason: '', // message → reason
+        isMatch: false,
+        scoreEffect: 0,
+        detectedLabels: [],
         error: '画像の送信に失敗しました。',
       };
 

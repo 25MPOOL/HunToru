@@ -17,18 +17,21 @@ export interface Theme {
 }
 
 /**
- * AI判定結果の型定義
+ * AI判定結果の型定義（API仕様に合わせて更新）
  */
 export interface JudgeResult {
   success: boolean;
   theme: string;
-  label_score: number;
-  detected_labels: Array<{
-    description: string;
-    score: number;
-  }>;
-  image_properties?: unknown;
-  message: string;
+  score: number; // label_score → score に変更
+  reason: string; // message → reason に変更
+  isMatch: boolean; // 新規追加
+  scoreEffect: number; // 新規追加
+  detectedLabels: string[]; // 配列の型を簡素化
+  dominantColors?: Array<{
+    red: number;
+    green: number;
+    blue: number;
+  }>; // 新規追加
   error?: string;
 }
 

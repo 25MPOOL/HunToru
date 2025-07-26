@@ -8,11 +8,7 @@ import huntoru from '../../assets/huntoru.png';
 import { PixelBubble } from '../ui/PixelBubble';
 import styles from './ModeScreen.module.css';
 
-interface Theme {
-  id: number;
-  difficulty: 'EASY' | 'NORMAL' | 'HARD';
-  theme: string;
-}
+import type { Theme } from '@/web/types';
 
 export const ModeScreen = () => {
   const navigate = useNavigate();

@@ -8,8 +8,12 @@
 }
 
 /* Screen 3.5: Photo Preview Screen */
-  .preview-screen {
-  background: linear-gradient(180deg, var(--accent-bg) 0%, var(--soft-pink) 100%);
+.preview-screen {
+  background: linear-gradient(
+    180deg,
+    var(--accent-bg) 0%,
+    var(--soft-pink) 100%
+  );
 }
 
 .content {

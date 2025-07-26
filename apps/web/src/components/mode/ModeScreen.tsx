@@ -8,6 +8,7 @@ import huntoru from '../../assets/huntoru.png';
 import { PixelBubble } from '../ui/PixelBubble';
 import styles from './ModeScreen.module.css';
 
+import { API_CONFIG } from '@/web/lib/api';
 import type { Theme } from '@/web/types';
 
 export const ModeScreen = () => {
@@ -23,7 +24,7 @@ export const ModeScreen = () => {
   const fetchThemes = useCallback(async (mode: string) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}themes?difficulty=${mode}`,
+        `${API_CONFIG.baseUrl}themes?difficulty=${mode}`,
       );
       const themes: Theme[] = await response.json();
 

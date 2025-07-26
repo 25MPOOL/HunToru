@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 import huntoru from '../../assets/huntoru.png';
 import styles from './ResultScreen.module.css';
@@ -92,7 +93,13 @@ export const ResultScreen = () => {
   }, []);
 
   return (
-    <div className={clsx(styles.screen, styles['result-screen'])}>
+    <motion.div
+      className={clsx(styles.screen, styles['result-screen'])}
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
       <div className={styles.content}>
         <div className={styles['result-content']}>
           {/* 上部の情報 */}
@@ -157,6 +164,6 @@ export const ResultScreen = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

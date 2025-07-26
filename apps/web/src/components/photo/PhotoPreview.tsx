@@ -2,17 +2,15 @@ import clsx from 'clsx';
 
 import styles from './PhotoPreview.module.css';
 
-type PhotoPreviewProps = {
-  onConfirm: () => void;
-  onRetake: () => void;
-  timeLeft: number;
-};
+interface PhotoPreviewProps {
+  onConfirm?: () => void;
+  onRetake?: () => void;
+  timeLeft?: number;
+}
 
-export const PhotoPreview: React.FC<PhotoPreviewProps> = ({
-  onConfirm,
-  onRetake,
-  timeLeft,
-}) => {
+export const PhotoPreview = (props: PhotoPreviewProps) => {
+  const { onConfirm, onRetake, timeLeft = 0 } = props;
+
   return (
     <div className={clsx(styles['screen'], styles['preview-screen'])}>
       <div className={styles.content}>

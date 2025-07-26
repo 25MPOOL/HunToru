@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 import styles from './PhotoScreen.module.css';
 
@@ -81,7 +82,13 @@ export const PhotoScreen = () => {
   }, [handleNextPreview]);
 
   return (
-    <div className={clsx(styles['screen'], styles['photo-screen'])}>
+    <motion.div
+      className={clsx(styles['screen'], styles['photo-screen'])}
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
       <div className={styles.content}>
         {/* パターン2: コンパクトヘッダー表示 */}
         <div className={styles['photo-content']}>
@@ -163,6 +170,6 @@ export const PhotoScreen = () => {
           isFlashing && styles['flash-active'],
         )}
       />
-    </div>
+    </motion.div>
   );
 };

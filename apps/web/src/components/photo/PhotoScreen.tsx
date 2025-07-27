@@ -9,7 +9,7 @@ import styles from './PhotoScreen.module.css';
 
 import components from '@/web/App.module.css';
 import { Camera } from '@/web/components/camera/camera';
-import type { CameraRef } from '@/web/components/camera/types';
+import type { CameraRef } from '@/web/types';
 import type { Theme } from '@/web/types';
 
 /**

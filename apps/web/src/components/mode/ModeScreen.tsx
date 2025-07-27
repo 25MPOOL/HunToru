@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
-import huntoru from '../../assets/huntoru.png';
-import { PixelBubble } from '../ui/PixelBubble';
 import styles from './ModeScreen.module.css';
 
 import components from '@/web/App.module.css';
+import huntoru from '@/web/assets/huntoru.png';
+import { PixelBubble } from '@/web/components/ui/PixelBubble';
 import { API_CONFIG } from '@/web/lib/api';
 import type { Theme } from '@/web/types';
 

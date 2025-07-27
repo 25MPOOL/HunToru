@@ -30,7 +30,7 @@ export const HomeScreen = () => {
       <div className={styles.content}>
         <div className={styles['home-content']}>
           <motion.h1
-            className={styles['app-title']}
+            className={clsx(styles['app-title'], 'jersey-15-regular')}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
@@ -38,12 +38,12 @@ export const HomeScreen = () => {
             HunToru
           </motion.h1>
           <motion.p
-            className={styles['app-subtitle']}
+            className={clsx(styles['app-subtitle'], 'jersey-15-regular')}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            お題をHuntしよう!
+            お題をHuntしよう！
           </motion.p>
 
           <motion.div

@@ -92,10 +92,10 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
         <div className={styles['preview-content']}>
           {/* 残り時間表示 */}
           <div className={styles['time-info']}>
+            <div className={styles['time-label']}>残り時間</div>
             <div className={styles['time-remaining']} id="preview-timer">
               0:{localStorage.getItem('countDown')?.toString().padStart(2, '0')}
             </div>
-            <div className={styles['time-label']}>残り時間</div>
           </div>
 
           {/* プレビューヘッダー */}

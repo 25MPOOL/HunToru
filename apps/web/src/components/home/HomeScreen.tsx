@@ -43,7 +43,7 @@ export const HomeScreen = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            写真をHuntしよう!
+            お題をHuntしよう!
           </motion.p>
 
           <motion.div

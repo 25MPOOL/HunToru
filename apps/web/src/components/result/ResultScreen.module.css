@@ -93,8 +93,8 @@
 }
 
 .character-image {
-  width: 70%;
-  height: 70%;
+  width: 52%;
+  height: 52%;
   object-fit: contain;
   object-position: center;
   border-radius: 64px;

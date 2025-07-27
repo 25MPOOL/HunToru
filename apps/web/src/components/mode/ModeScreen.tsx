@@ -4,12 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
-import styles from './ModeScreen.module.css';
-
-import components from '@/web/App.module.css';
 import huntoru from '@/web/assets/huntoru.png';
+import styles from '@/web/components/mode/ModeScreen.module.css';
 import { PixelBubble } from '@/web/components/ui/PixelBubble';
 import { API_CONFIG } from '@/web/lib/api';
+import components from '@/web/styles/App.module.css';
 import type { Theme } from '@/web/types';
 
 export const ModeScreen = () => {

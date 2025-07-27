@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { HomeScreen } from './components/home/HomeScreen';
-import { ModeScreen } from './components/mode/ModeScreen';
-import { PhotoPreview } from './components/photo/PhotoPreview';
-import { PhotoScreen } from './components/photo/PhotoScreen';
-import { ResultScreen } from './components/result/ResultScreen';
+import { HomeScreen } from '@/web/components/home/HomeScreen';
+import { ModeScreen } from '@/web/components/mode/ModeScreen';
+import { PhotoPreview } from '@/web/components/photo/PhotoPreview';
+import { PhotoScreen } from '@/web/components/photo/PhotoScreen';
+import { ResultScreen } from '@/web/components/result/ResultScreen';
 
 const router = createBrowserRouter([
   {

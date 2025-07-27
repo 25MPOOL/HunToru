@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
-import styles from './PhotoPreview.module.css';
-
-import components from '@/web/App.module.css';
+import styles from '@/web/components/photo/PhotoPreview.module.css';
 import { API_CONFIG } from '@/web/lib/api';
+import components from '@/web/styles/App.module.css';
 
 interface PhotoPreviewProps {
   onConfirm?: () => void;

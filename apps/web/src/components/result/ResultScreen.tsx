@@ -4,12 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
-import styles from './ResultScreen.module.css';
-
-import components from '@/web/App.module.css';
 import huntoru_angry from '@/web/assets/huntoru_angry.gif';
 import huntoru_happy from '@/web/assets/huntoru_happy.gif';
+import styles from '@/web/components/result/ResultScreen.module.css';
 import { PixelBubble } from '@/web/components/ui/PixelBubble';
+import components from '@/web/styles/App.module.css';
 
 export const ResultScreen = () => {
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -118,13 +117,6 @@ export const ResultScreen = () => {
         <div className={styles['result-content']}>
           {/* 上部の情報 */}
           <div className={styles['result-top-info']}>
-            {/* <div className={styles['result-emoji']}>
-              {isMatch ? '🎉' : '😭'}
-            </div>
-            <h1 className={styles['result-title']}>
-              {isMatch ? '成功！' : '失敗...'}
-            </h1> */}
-
             {/* プログレスバースコア表示 */}
             <div className={styles['score-progress-container']}>
               <div className={styles['score-header']}>

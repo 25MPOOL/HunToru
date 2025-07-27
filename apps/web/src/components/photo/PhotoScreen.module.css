@@ -75,7 +75,7 @@
 .camera-main {
   position: relative;
   background: var(--dark-brown);
-  margin: 10px 10px 0;
+  margin: 10px;
   border-radius: 20px;
   overflow: hidden;
   display: flex;

@@ -97,7 +97,7 @@
   align-items: center;
   justify-content: center;
   /* height: 100%; */
-  padding: 40px 20px;
+  padding: 60px 20px;
   text-align: center;
 }
 
@@ -124,8 +124,8 @@
 }
 
 .character-area {
-  width: 85%;
-  height: 85%;
+  width: 60%;
+  height: 60%;
   margin-bottom: 80px;
   opacity: 0;
   position: relative;

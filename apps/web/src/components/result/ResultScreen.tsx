@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { PixelBubble } from '../ui/PixelBubble';
 import styles from './ResultScreen.module.css';
 
+import components from '@/web/App.module.css';
 import huntoru_angry from '@/web/assets/huntoru_angry.gif';
 import huntoru_happy from '@/web/assets/huntoru_happy.gif';
 
@@ -107,7 +108,7 @@ export const ResultScreen = () => {
 
   return (
     <motion.div
-      className={clsx(styles.screen, styles['result-screen'])}
+      className={clsx(components.screen, styles['result-screen'])}
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}

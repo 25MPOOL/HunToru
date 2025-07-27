@@ -7,6 +7,8 @@ import { motion } from 'framer-motion';
 import huntoru from '../../assets/huntoru.png';
 import styles from './HomeScreen.module.css';
 
+import components from '@/web/App.module.css';
+
 export const HomeScreen = () => {
   const navigate = useNavigate();
 
@@ -16,7 +18,7 @@ export const HomeScreen = () => {
 
   return (
     <motion.div
-      className={clsx(styles.screen, styles['home-screen'], styles.active)}
+      className={clsx(components.screen, styles['home-screen'], styles.active)}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, x: -100 }}

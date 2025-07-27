@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 /* ピクセルフォント */
 @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+/* タイトルフォント */
+@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
+
 
 html,
 body,
@@ -33,6 +36,7 @@ body,
   --text-secondary: #8d6e63;
 }
 
+/* === フォント === */
 .retro-font {
   font-family: 'Press Start 2P', 'Courier New', monospace;
 }
@@ -49,9 +53,16 @@ body,
   font-style: normal;
 }
 
+.jersey-15-regular {
+  font-family: "Jersey 15", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* ピクセルアート風の画像レンダリング */
 .pixelated {
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
 }
+

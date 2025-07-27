@@ -30,8 +30,12 @@
 }
 
 .time-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin-bottom: 15px;
+  gap: 10px;
+  margin-bottom: 16px;
   padding: 12px 20px;
   background: var(--primary-bg);
   border-radius: 15px;
@@ -42,7 +46,7 @@
   font-size: 18px;
   font-weight: 700;
   color: var(--dark-brown);
-  margin-bottom: 4px;
+  /* margin-bottom: 4px; */
 }
 
 .time-label {

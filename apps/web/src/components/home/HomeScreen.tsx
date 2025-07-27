@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
-import huntoru from '../../assets/huntoru.png';
 import styles from './HomeScreen.module.css';
 
 import components from '@/web/App.module.css';
+import huntoru from '@/web/assets/huntoru.png';
 
 export const HomeScreen = () => {
   const navigate = useNavigate();

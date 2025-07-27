@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import clsx from 'clsx';
@@ -17,11 +17,15 @@ interface PhotoPreviewProps {
 export const PhotoPreview = (props: PhotoPreviewProps) => {
   const { onConfirm, onRetake } = props;
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const handleConfirm = useCallback(() => {
     if (onConfirm) {
       onConfirm();
     }
+
+    setIsLoading(true);
 
     // localStorage から theme と difficulty と base64 のデータを取得し、リクエストボディに含める
     const themesData = JSON.parse(
@@ -67,6 +71,7 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
         navigate('/result');
       } catch (e) {
         console.error(e);
+        setIsLoading(false);
       }
     };
 
@@ -119,19 +124,33 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
 
           {/* アクションボタン */}
           <div className={styles['preview-actions']}>
-            <button
-              className={clsx(styles['preview-button'], styles['btn-confirm'])}
-              onClick={handleConfirm}
-            >
-              この写真で決定！
-            </button>
-            {parseInt(localStorage.getItem('countDown') || '0', 10) > 1 && (
-              <button
-                className={clsx(styles['preview-button'], styles['btn-retake'])}
-                onClick={handleRetake}
-              >
-                撮り直す
-              </button>
+            {isLoading ? (
+              <div className={styles['loading-container']}>
+                <div className={styles['loading-spinner']}></div>
+              </div>
+            ) : (
+              <>
+                <button
+                  className={clsx(
+                    styles['preview-button'],
+                    styles['btn-confirm'],
+                  )}
+                  onClick={handleConfirm}
+                >
+                  この写真で決定！
+                </button>
+                {parseInt(localStorage.getItem('countDown') || '0', 10) > 1 && (
+                  <button
+                    className={clsx(
+                      styles['preview-button'],
+                      styles['btn-retake'],
+                    )}
+                    onClick={handleRetake}
+                  >
+                    撮り直す
+                  </button>
+                )}
+              </>
             )}
           </div>
         </div>

@@ -89,6 +89,7 @@
   cursor: crosshair;
   transition: all 0.3s ease;
   flex: 1;
+  max-height: calc(100vh - 200px);
 }
 
 /* Camera UI Elements */

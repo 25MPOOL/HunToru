@@ -1,11 +1,3 @@
-.screen {
-  width: 100%;
-  height: 100%;
-  border-radius: 36px;
-  overflow: hidden;
-  position: relative;
-}
-
 .content {
   height: 100%;
   position: relative;
@@ -23,6 +15,12 @@
 .difficulty-header {
   text-align: center;
   padding: 40px 20px 30px;
+}
+
+@media (max-width: 460px) {
+  .difficulty-header {
+    padding: 80px 20px 30px;
+  }
 }
 
 .pixel-bubble {
@@ -43,6 +41,21 @@
   font-weight: 700;
   letter-spacing: 0.03em;
   font-family: 'Courier New', Courier;
+}
+
+@media (max-width: 460px) {
+  .pixel-bubble {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    top: 10px;
+    left: 60px;
+    color: var(--primary-bg);
+  }
+  .pixel-bubble-text {
+    top: 77px;
+    left: 85px;
+  }
 }
 
 .huntoru-icon {

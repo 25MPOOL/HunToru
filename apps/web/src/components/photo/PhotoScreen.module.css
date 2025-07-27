@@ -1,10 +1,7 @@
-.screen {
-  width: 100%;
+.content {
   height: 100%;
-  border-radius: 36px;
-  overflow: hidden;
   position: relative;
-  /* display: none; */
+  overflow-y: auto;
 }
 
 .photo-screen {
@@ -15,7 +12,7 @@
   );
 }
 
-.photo-Content {
+.photo-content {
   height: 100%;
   position: relative;
   display: flex;
@@ -91,6 +88,12 @@
     inset 0 0 0 2px rgba(255, 255, 255, 0.1);
   cursor: crosshair;
   transition: all 0.3s ease;
+}
+
+@media (max-width: 460px) {
+  .camera-main {
+    flex: 1;
+  }
 }
 
 /* Camera UI Elements */

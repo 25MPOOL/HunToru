@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 
 import styles from './PhotoPreview.module.css';
 
+import components from '@/web/App.module.css';
 import { API_CONFIG } from '@/web/lib/api';
 
 interface PhotoPreviewProps {
@@ -82,7 +83,7 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
 
   return (
     <motion.div
-      className={clsx(styles['screen'], styles['preview-screen'])}
+      className={clsx(components.screen, styles['preview-screen'])}
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}

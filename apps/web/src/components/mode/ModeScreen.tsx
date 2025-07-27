@@ -8,6 +8,7 @@ import huntoru from '../../assets/huntoru.png';
 import { PixelBubble } from '../ui/PixelBubble';
 import styles from './ModeScreen.module.css';
 
+import components from '@/web/App.module.css';
 import { API_CONFIG } from '@/web/lib/api';
 import type { Theme } from '@/web/types';
 
@@ -37,7 +38,7 @@ export const ModeScreen = () => {
 
   return (
     <motion.div
-      className={clsx(styles.screen, styles['difficulty-screen'])}
+      className={clsx(components.screen, styles['difficulty-screen'])}
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}

@@ -26,7 +26,7 @@ export const PhotoScreen = () => {
   const [isFlashing, setIsFlashing] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
   const [themes, setThemes] = useState<Theme[]>([]);
-  const [countDown, setCountDown] = useState(999);
+  const [countDown, setCountDown] = useState(59);
 
   const cameraRef = useRef<CameraRef>(null);
 

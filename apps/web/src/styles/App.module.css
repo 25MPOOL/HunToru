@@ -1,12 +1,3 @@
-/* アプリ全体 */
-.app {
-  background-color: #f5e6d3;
-  height: 100vh;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-}
-
 .screen {
   width: 100%;
   height: 100%;
@@ -39,42 +30,4 @@
   .screen {
     border-radius: 0;
   }
-}
-
-/* テスト用の結果画面 */
-.testResult {
-  padding: 20px;
-  text-align: center;
-  background-color: #f5e6d3;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.testResultTitle {
-  font-size: 24px;
-  margin-bottom: 20px;
-  font-family: 'Courier New', monospace;
-}
-
-.testResultContent {
-  margin-bottom: 30px;
-}
-
-.testResultButton {
-  padding: 15px 30px;
-  background-color: #6b46c1;
-  color: white;
-  border: 3px solid #4c1d95;
-  border-radius: 0;
-  font-size: 16px;
-  font-family: 'Courier New', monospace;
-  cursor: pointer;
-  box-shadow: 4px 4px 0px #2d1b69;
-}
-
-.testResultButton:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px #2d1b69;
 }

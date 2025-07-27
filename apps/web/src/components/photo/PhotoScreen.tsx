@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
-import { Camera } from '../camera';
 import styles from './PhotoScreen.module.css';
 
 import components from '@/web/App.module.css';
+import { Camera } from '@/web/components/camera/camera';
 import type { CameraRef } from '@/web/components/camera/types';
 import type { Theme } from '@/web/types';
 

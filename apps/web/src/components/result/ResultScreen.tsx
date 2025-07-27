@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
-import huntoru from '../../assets/huntoru.png';
+import { PixelBubble } from '../ui/PixelBubble';
 import styles from './ResultScreen.module.css';
+
+import huntoru_angry from '@/web/assets/huntoru_angry.gif';
+import huntoru_happy from '@/web/assets/huntoru_happy.gif';
 
 export const ResultScreen = () => {
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -13,6 +16,7 @@ export const ResultScreen = () => {
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isMatch, setIsMatch] = useState(false);
+  const [reason, setReason] = useState('');
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const navigate = useNavigate();
@@ -71,6 +75,9 @@ export const ResultScreen = () => {
     if (judgeResult.isMatch) {
       setIsMatch(judgeResult.isMatch);
     }
+    if (judgeResult.reason) {
+      setReason(judgeResult.reason);
+    }
     setIsDataLoaded(true);
   }, []);
 
@@ -110,17 +117,17 @@ export const ResultScreen = () => {
         <div className={styles['result-content']}>
           {/* 上部の情報 */}
           <div className={styles['result-top-info']}>
-            <div className={styles['result-emoji']}>
+            {/* <div className={styles['result-emoji']}>
               {isMatch ? '🎉' : '😭'}
             </div>
             <h1 className={styles['result-title']}>
               {isMatch ? '成功！' : '失敗...'}
-            </h1>
+            </h1> */}
 
             {/* プログレスバースコア表示 */}
             <div className={styles['score-progress-container']}>
               <div className={styles['score-header']}>
-                <div className={styles['score-label-progress']}>おいしさ度</div>
+                <div className={styles['score-label-progress']}>似ている度</div>
                 <span
                   className={styles['score-value-progress']}
                   ref={scoreValueRef}
@@ -140,13 +147,13 @@ export const ResultScreen = () => {
 
           {/* キャラクター */}
           <div className={styles['character-center']}>
-            <div className={styles['character-main']}>
-              <img
-                src={huntoru}
-                alt="huntoru"
-                className={styles['character-image']}
-              />
-            </div>
+            <PixelBubble className={styles['pixel-bubble']} />
+            <p className={styles['pixel-bubble-text']}>{reason}</p>
+            <img
+              src={isMatch ? huntoru_happy : huntoru_angry}
+              alt="huntoru"
+              className={styles['character-image']}
+            />
           </div>
 
           {/* ボタン */}

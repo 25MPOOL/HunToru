@@ -58,7 +58,7 @@ const ErrorResponseSchema = z.object({
 });
 
 // NOTE: 判定結果がこれより高い場合は、お題に近いと判定する
-const CLEAR_THRESHOLD = 0.7;
+const CLEAR_THRESHOLD = 0.5;
 
 const app = new OpenAPIHono<{ Bindings: Env }>();
 

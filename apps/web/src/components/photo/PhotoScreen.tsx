@@ -25,6 +25,7 @@ export const PhotoScreen = () => {
   const [isFlashing, setIsFlashing] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
   const [themes, setThemes] = useState<Theme[]>([]);
+  const [countDown, setCountDown] = useState(59);
 
   const cameraRef = useRef<CameraRef>(null);
 
@@ -112,6 +113,31 @@ export const PhotoScreen = () => {
     return 'お題がありません';
   }, [themes]);
 
+  useEffect(() => {
+    const storedCountDown = localStorage.getItem('countDown');
+    if (storedCountDown) {
+      setCountDown(parseInt(storedCountDown, 10));
+    }
+
+    const timer = setInterval(() => {
+      setCountDown((prev) => {
+        const currentCountDown = prev <= 0 ? 0 : prev - 1;
+        localStorage.setItem('countDown', currentCountDown.toString());
+
+        if (currentCountDown <= 0) {
+          clearInterval(timer);
+
+          // カメラの撮影をする
+          handleCapturePhoto();
+          return 0;
+        }
+        return currentCountDown;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [handleCapturePhoto]);
+
   return (
     <motion.div
       className={clsx(styles['screen'], styles['photo-screen'])}
@@ -125,14 +151,14 @@ export const PhotoScreen = () => {
         <div className={styles['photo-content']}>
           <div className={styles['compact-header']}>
             <div className={styles['compact-timer']}>
-              <div className={styles['compact-timer-number']} id="timer">
-                0:59
-              </div>
               <div className={styles['compact-timer-label']}>残り</div>
+              <div className={styles['compact-timer-number']} id="timer">
+                0:{countDown.toString().padStart(2, '0')}
+              </div>
             </div>
             <div className={styles['compact-challenge']}>
               <div className={styles['compact-challenge-text']}>
-                「{currentTheme}を撮ろう！」
+                「{currentTheme}」
               </div>
               <div className={styles['compact-challenge-hint']}>
                 明るい場所で、大きく写そう

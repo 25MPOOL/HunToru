@@ -5,7 +5,6 @@
 /* タイトルフォント */
 @import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 
-
 html,
 body,
 #root {
@@ -54,7 +53,7 @@ body,
 }
 
 .jersey-15-regular {
-  font-family: "Jersey 15", sans-serif;
+  font-family: 'Jersey 15', sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -65,4 +64,3 @@ body,
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
 }
-

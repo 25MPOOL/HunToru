@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { Camera } from '../camera';
 import styles from './PhotoScreen.module.css';
 
+import components from '@/web/App.module.css';
 import type { CameraRef } from '@/web/components/camera/types';
 import type { Theme } from '@/web/types';
 
@@ -25,7 +26,7 @@ export const PhotoScreen = () => {
   const [isFlashing, setIsFlashing] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
   const [themes, setThemes] = useState<Theme[]>([]);
-  const [countDown, setCountDown] = useState(59);
+  const [countDown, setCountDown] = useState(999);
 
   const cameraRef = useRef<CameraRef>(null);
 
@@ -140,7 +141,7 @@ export const PhotoScreen = () => {
 
   return (
     <motion.div
-      className={clsx(styles['screen'], styles['photo-screen'])}
+      className={clsx(components.screen, styles['photo-screen'])}
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}

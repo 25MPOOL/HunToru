@@ -21,7 +21,7 @@
 
 .compact-header {
   background: var(--primary-bg);
-  padding: 25px 30px;
+  padding: 25px 30px 16px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -72,7 +72,7 @@
 .camera-main {
   position: relative;
   background: var(--dark-brown);
-  margin: 10px;
+  margin: 20px;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -88,12 +88,7 @@
     inset 0 0 0 2px rgba(255, 255, 255, 0.1);
   cursor: crosshair;
   transition: all 0.3s ease;
-}
-
-@media (max-width: 460px) {
-  .camera-main {
-    flex: 1;
-  }
+  flex: 1;
 }
 
 /* Camera UI Elements */
@@ -235,8 +230,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--primary-bg);
-  position: relative;
+  /* background: var(--primary-bg); */
+  position: absolute;
+  bottom: 72px;
+  left: 0;
+  right: 0;
+  z-index: 10;
 }
 
 .photo-button-large {

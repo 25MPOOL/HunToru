@@ -11,11 +11,10 @@ import { API_CONFIG } from '@/web/lib/api';
 interface PhotoPreviewProps {
   onConfirm?: () => void;
   onRetake?: () => void;
-  timeLeft?: number;
 }
 
 export const PhotoPreview = (props: PhotoPreviewProps) => {
-  const { onConfirm, onRetake, timeLeft = 0 } = props;
+  const { onConfirm, onRetake } = props;
 
   const navigate = useNavigate();
   const handleConfirm = useCallback(() => {
@@ -62,6 +61,7 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
         // localStorage に保存してある お題情報と写真データを削除
         localStorage.removeItem('photo');
         localStorage.removeItem('currentThemes');
+        localStorage.removeItem('countDown');
 
         navigate('/result');
       } catch (e) {
@@ -93,8 +93,7 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
           {/* 残り時間表示 */}
           <div className={styles['time-info']}>
             <div className={styles['time-remaining']} id="preview-timer">
-              {Math.floor(timeLeft / 60)}:
-              {String(timeLeft % 60).padStart(2, '0')}
+              0:{localStorage.getItem('countDown')?.toString().padStart(2, '0')}
             </div>
             <div className={styles['time-label']}>残り時間</div>
           </div>
@@ -125,12 +124,14 @@ export const PhotoPreview = (props: PhotoPreviewProps) => {
             >
               この写真で決定！
             </button>
-            <button
-              className={clsx(styles['preview-button'], styles['btn-retake'])}
-              onClick={handleRetake}
-            >
-              撮り直す
-            </button>
+            {parseInt(localStorage.getItem('countDown') || '0', 10) > 1 && (
+              <button
+                className={clsx(styles['preview-button'], styles['btn-retake'])}
+                onClick={handleRetake}
+              >
+                撮り直す
+              </button>
+            )}
           </div>
         </div>
       </div>

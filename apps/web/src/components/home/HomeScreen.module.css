@@ -116,19 +116,20 @@
 }
 
 .app-title {
-  font-size: 60px;
+  font-size: 75px;
   font-weight: 700;
   color: var(--dark-brown);
   margin-bottom: 0px;
-  letter-spacing: -1px;
+  letter-spacing: 0.03em;
   opacity: 0;
   transform: translateY(30px);
   animation: titleFadeIn 1.2s ease-out 0.3s forwards;
 }
 
 .app-subtitle {
-  font-size: 16px;
+  font-size: 20px;
   color: var(--text-secondary);
+  margin-top: 0px;
   margin-bottom: 40px;
   line-height: 1.5;
   opacity: 0;

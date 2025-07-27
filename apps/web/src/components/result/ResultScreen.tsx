@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
-import { PixelBubble } from '../ui/PixelBubble';
 import styles from './ResultScreen.module.css';
 
 import components from '@/web/App.module.css';
 import huntoru_angry from '@/web/assets/huntoru_angry.gif';
 import huntoru_happy from '@/web/assets/huntoru_happy.gif';
+import { PixelBubble } from '@/web/components/ui/PixelBubble';
 
 export const ResultScreen = () => {
   const progressBarRef = useRef<HTMLDivElement>(null);

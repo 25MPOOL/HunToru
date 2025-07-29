@@ -7,7 +7,13 @@ import {
 } from 'react';
 
 import styles from './camera.module.css';
-import type { CameraProps, CameraRef } from './types';
+
+import type { CameraRef } from '@/web/types';
+
+interface CameraProps {
+  /** 撮影完了時のコールバック関数（base64形式の画像データを受け取る） */
+  onCapture: (imageData: string) => void;
+}
 
 /**
  * カメラプレビューと撮影機能を提供するコンポーネント

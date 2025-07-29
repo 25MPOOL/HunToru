@@ -57,10 +57,3 @@ body,
   font-weight: 400;
   font-style: normal;
 }
-
-/* ピクセルアート風の画像レンダリング */
-.pixelated {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-}
